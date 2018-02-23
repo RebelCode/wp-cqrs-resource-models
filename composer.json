@@ -12,21 +12,50 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^5.4 | ^7.0"
+        "php": "^5.4 | ^7.0",
+        "dhii/cqrs-resource-model-interface": "dev-task/initial-interfaces",
+        "rebelcode/sql-cqrs-resource-models-abstract": "dev-task/initial-classes",
+        "dhii/normalization-helper-base": "^0.1",
+        "dhii/exception-helper-base": "^0.1",
+        "dhii/data-container-base": "^0.1",
+        "dhii/container-helper-base": "^0.1",
+        "dhii/iterator-helper-base": "^0.1",
+        "dhii/i18n-helper-base": "^0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
         "ptrofimov/xpmock": "^1.1",
         "dhii/php-cs-fixer-config": "^0.1",
-        "codeclimate/php-test-reporter": "<=0.3.2"
+        "codeclimate/php-test-reporter": "<=0.3.2",
+        "dhii/stringable-interface": "^0.1",
+        "dhii/expression-interface": "^0.2",
+        "dhii/output-renderer-interface": "^0.3",
+        "dhii/sql-interface": "^0.1"
     },
     "autoload": {
         "psr-4": {
             "RebelCode\\Storage\\Resource\\WordPress\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "RebelCode\\Storage\\Resource\\WordPress\\FuncTest\\": "test/functional",
+            "RebelCode\\Storage\\Resource\\WordPress\\UnitTest\\": "test/unit"
+        }
+    },
     "scripts": {
         "test": "phpunit",
         "csfix": "php-cs-fixer fix -vvv"
-    }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.1.x-dev"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Dhii/cqrs-resource-model-interface"
+        }
+    ]
 }
