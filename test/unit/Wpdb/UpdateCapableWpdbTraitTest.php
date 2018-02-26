@@ -14,7 +14,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
  *
  * @since [*next-version*]
  */
-class WpdbUpdateCapableTraitTest extends TestCase
+class UpdateCapableWpdbTraitTest extends TestCase
 {
     /**
      * The class name of the test subject.

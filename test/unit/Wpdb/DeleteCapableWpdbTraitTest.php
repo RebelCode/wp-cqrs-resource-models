@@ -12,7 +12,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
  *
  * @since [*next-version*]
  */
-class WpdbDeleteCapableTraitTest extends TestCase
+class DeleteCapableWpdbTraitTest extends TestCase
 {
     /**
      * The class name of the test subject.

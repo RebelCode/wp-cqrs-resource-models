@@ -13,7 +13,7 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
  *
  * @since [*next-version*]
  */
-class WpdbInsertCapableTraitTest extends TestCase
+class InsertCapableWpdbTraitTest extends TestCase
 {
     /**
      * The class name of the test subject.

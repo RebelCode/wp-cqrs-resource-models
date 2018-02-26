@@ -13,7 +13,7 @@ use Xpmock\TestCase;
  *
  * @since [*next-version*]
  */
-class WpdbSelectCapableTraitTest extends TestCase
+class SelectCapableWpdbTraitTest extends TestCase
 {
     /**
      * The class name of the test subject.
