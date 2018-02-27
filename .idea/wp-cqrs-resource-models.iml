@@ -21,6 +21,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/expression-renderer-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/i18n-helper-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/i18n-interface" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/invocable-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/iterator-helper-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/normalization-helper-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/output-renderer-interface" />
@@ -44,6 +45,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ptrofimov/xpmock" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/expression-wp-query-builder" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/sql-cqrs-resource-models-abstract" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/satooshi/php-coveralls" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/comparator" />

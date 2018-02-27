@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "929c15ce08efba305c6e081e13f602bd",
+    "content-hash": "414f7c874202a0798f3eadd14b3ed52e",
     "packages": [
         {
             "name": "dhii/container-helper-base",
@@ -57,28 +57,33 @@
         },
         {
             "name": "dhii/cqrs-resource-model-interface",
-            "version": "dev-task/initial-interfaces",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/cqrs-resource-model-interface.git",
-                "reference": "fdd571d42487fd9f5f1ad221a6be690ea5002de8"
+                "reference": "5654153a7cccb0f6e88e27f17450cc405dba706e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/cqrs-resource-model-interface/zipball/fdd571d42487fd9f5f1ad221a6be690ea5002de8",
-                "reference": "fdd571d42487fd9f5f1ad221a6be690ea5002de8",
+                "url": "https://api.github.com/repos/Dhii/cqrs-resource-model-interface/zipball/5654153a7cccb0f6e88e27f17450cc405dba706e",
+                "reference": "5654153a7cccb0f6e88e27f17450cc405dba706e",
                 "shasum": ""
             },
             "require": {
-                "dhii/expression-interface": "^0.2",
-                "php": "^5.3 | ^7.0",
-                "psr/container": "^1.0"
+                "php": "^5.3 | ^7.0"
             },
             "require-dev": {
                 "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/expression-interface": "^0.2",
                 "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "dhii/stringable-interface": "^0.1",
                 "phpunit/phpunit": "^4.8",
+                "psr/container": "^1.0",
                 "ptrofimov/xpmock": "^1.1"
+            },
+            "suggest": {
+                "dhii/expression-interface": "To create query conditions and value expressions.",
+                "dhii/stringable-interface": "To pass stringable objects in place of strings."
             },
             "type": "library",
             "extra": {
@@ -91,14 +96,7 @@
                     "Dhii\\Storage\\Resource\\": "src"
                 }
             },
-            "scripts": {
-                "test": [
-                    "phpunit"
-                ],
-                "csfix": [
-                    "php-cs-fixer fix -vvv"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -109,11 +107,7 @@
                 }
             ],
             "description": "Interfaces for a CQRS approach to resource models.",
-            "support": {
-                "source": "https://github.com/Dhii/cqrs-resource-model-interface/tree/task/initial-interfaces",
-                "issues": "https://github.com/Dhii/cqrs-resource-model-interface/issues"
-            },
-            "time": "2018-02-08T08:36:22+00:00"
+            "time": "2018-02-23T16:59:29+00:00"
         },
         {
             "name": "dhii/data-container-abstract",
@@ -456,16 +450,16 @@
         },
         {
             "name": "dhii/exception-interface",
-            "version": "v0.2-alpha2",
+            "version": "v0.2-alpha3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/exception-interface.git",
-                "reference": "763d850faba26cc4c8535998c61098ded153d3bc"
+                "reference": "8271ae49553695bc8d2cc4707f8a1459a031e64f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/exception-interface/zipball/763d850faba26cc4c8535998c61098ded153d3bc",
-                "reference": "763d850faba26cc4c8535998c61098ded153d3bc",
+                "url": "https://api.github.com/repos/Dhii/exception-interface/zipball/8271ae49553695bc8d2cc4707f8a1459a031e64f",
+                "reference": "8271ae49553695bc8d2cc4707f8a1459a031e64f",
                 "shasum": ""
             },
             "require": {
@@ -500,7 +494,7 @@
                 }
             ],
             "description": "Interfaces for most common exceptions",
-            "time": "2018-02-19T22:13:15+00:00"
+            "time": "2018-02-23T13:24:59+00:00"
         },
         {
             "name": "dhii/expression-interface",
@@ -552,6 +546,54 @@
             ],
             "description": "Interoperable interfaces for representing expressions.",
             "time": "2018-01-13T14:56:39+00:00"
+        },
+        {
+            "name": "dhii/expression-renderer-interface",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/expression-renderer-interface.git",
+                "reference": "3cfde9f01080a089b873458b607ad51b659257e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/expression-renderer-interface/zipball/3cfde9f01080a089b873458b607ad51b659257e1",
+                "reference": "3cfde9f01080a089b873458b607ad51b659257e1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3 | ^7.0",
+                "psr/container": "^1.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Expression\\Renderer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interfaces for expression rendering.",
+            "time": "2018-02-01T15:05:06+00:00"
         },
         {
             "name": "dhii/i18n-helper-base",
@@ -644,6 +686,54 @@
             ],
             "description": "Interfaces for internationalization.",
             "time": "2017-03-13T12:08:29+00:00"
+        },
+        {
+            "name": "dhii/invocable-interface",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/invocable-interface.git",
+                "reference": "85f9fae9ae6bb53213c2a2354edf78bb364b705f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/invocable-interface/zipball/85f9fae9ae6bb53213c2a2354edf78bb364b705f",
+                "reference": "85f9fae9ae6bb53213c2a2354edf78bb364b705f",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/exception-interface": "^0.1 | ^0.2",
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Invocation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interface for objects that can be invoked.",
+            "time": "2018-02-12T16:56:45+00:00"
         },
         {
             "name": "dhii/iterator-helper-base",
@@ -745,6 +835,56 @@
             ],
             "description": "Functionality for normalizing values.",
             "time": "2018-02-12T09:41:29+00:00"
+        },
+        {
+            "name": "dhii/sql-interface",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/sql-interface.git",
+                "reference": "a4e2ab9d6ff4596de4a3f034bbeb6f0fc4d99356"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/sql-interface/zipball/a4e2ab9d6ff4596de4a3f034bbeb6f0fc4d99356",
+                "reference": "a4e2ab9d6ff4596de4a3f034bbeb6f0fc4d99356",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/expression-interface": "^0.2",
+                "dhii/expression-renderer-interface": "^0.1",
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Storage\\Resource\\Sql\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interfaces for SQL resource abstraction.",
+            "time": "2018-02-05T17:10:49+00:00"
         },
         {
             "name": "dhii/stringable-interface",
@@ -928,17 +1068,62 @@
             "time": "2017-02-14T16:28:37+00:00"
         },
         {
+            "name": "rebelcode/expression-wp-query-builder",
+            "version": "dev-task/initial-classes",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RebelCode/expression-wp-query-builder-abstract.git",
+                "reference": "a2804de8954b7f0d15ffd05dd56478a6cb22850f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RebelCode/expression-wp-query-builder-abstract/zipball/a2804de8954b7f0d15ffd05dd56478a6cb22850f",
+                "reference": "a2804de8954b7f0d15ffd05dd56478a6cb22850f",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/expression-interface": "^0.2",
+                "dhii/sql-interface": "^0.1",
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RebelCode\\WordPress\\Query\\Builder\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "RebelCode",
+                    "email": "dev@rebelcode.com"
+                }
+            ],
+            "description": "Abstract functionality for building WP_Query args using expressions.",
+            "time": "2018-02-26T17:08:18+00:00"
+        },
+        {
             "name": "rebelcode/sql-cqrs-resource-models-abstract",
             "version": "dev-task/initial-classes",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/sql-cqrs-resource-models-abstract.git",
-                "reference": "8fb42faba3e1da2da1d8b1b6582b58f6fc190d44"
+                "reference": "4e9b800b3ce9b88f1594340ab6c5a70e90832a40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/sql-cqrs-resource-models-abstract/zipball/8fb42faba3e1da2da1d8b1b6582b58f6fc190d44",
-                "reference": "8fb42faba3e1da2da1d8b1b6582b58f6fc190d44",
+                "url": "https://api.github.com/repos/RebelCode/sql-cqrs-resource-models-abstract/zipball/4e9b800b3ce9b88f1594340ab6c5a70e90832a40",
+                "reference": "4e9b800b3ce9b88f1594340ab6c5a70e90832a40",
                 "shasum": ""
             },
             "require": {
@@ -976,7 +1161,7 @@
                 }
             ],
             "description": "Abstract functionality for SQL CQRS resource models.",
-            "time": "2018-02-20T16:44:43+00:00"
+            "time": "2018-02-22T12:28:45+00:00"
         }
     ],
     "packages-dev": [
@@ -1037,54 +1222,6 @@
                 "coverage"
             ],
             "time": "2016-04-19T16:54:33+00:00"
-        },
-        {
-            "name": "dhii/expression-renderer-interface",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Dhii/expression-renderer-interface.git",
-                "reference": "3cfde9f01080a089b873458b607ad51b659257e1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/expression-renderer-interface/zipball/3cfde9f01080a089b873458b607ad51b659257e1",
-                "reference": "3cfde9f01080a089b873458b607ad51b659257e1",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3 | ^7.0",
-                "psr/container": "^1.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "<=0.3.2",
-                "dhii/php-cs-fixer-config": "dev-php-5.3",
-                "phpunit/phpunit": "^4.8",
-                "ptrofimov/xpmock": "^1.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Dhii\\Expression\\Renderer\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dhii Team",
-                    "email": "development@dhii.co"
-                }
-            ],
-            "description": "Interfaces for expression rendering.",
-            "time": "2018-02-01T15:05:06+00:00"
         },
         {
             "name": "dhii/output-renderer-interface",
@@ -1176,56 +1313,6 @@
             ],
             "description": "A default PHP CS Fixer config implementation",
             "time": "2017-07-23T12:53:27+00:00"
-        },
-        {
-            "name": "dhii/sql-interface",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Dhii/sql-interface.git",
-                "reference": "a4e2ab9d6ff4596de4a3f034bbeb6f0fc4d99356"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/sql-interface/zipball/a4e2ab9d6ff4596de4a3f034bbeb6f0fc4d99356",
-                "reference": "a4e2ab9d6ff4596de4a3f034bbeb6f0fc4d99356",
-                "shasum": ""
-            },
-            "require": {
-                "dhii/expression-interface": "^0.2",
-                "dhii/expression-renderer-interface": "^0.1",
-                "php": "^5.3 | ^7.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "<=0.3.2",
-                "dhii/php-cs-fixer-config": "dev-php-5.3",
-                "dhii/stringable-interface": "^0.1",
-                "phpunit/phpunit": "^4.8",
-                "ptrofimov/xpmock": "^1.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Dhii\\Storage\\Resource\\Sql\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dhii Team",
-                    "email": "development@dhii.co"
-                }
-            ],
-            "description": "Interfaces for SQL resource abstraction.",
-            "time": "2018-02-05T17:10:49+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -2978,8 +3065,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "dhii/cqrs-resource-model-interface": 20,
-        "rebelcode/sql-cqrs-resource-models-abstract": 20
+        "rebelcode/sql-cqrs-resource-models-abstract": 20,
+        "rebelcode/expression-wp-query-builder": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

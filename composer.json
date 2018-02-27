@@ -13,14 +13,16 @@
     "prefer-stable": true,
     "require": {
         "php": "^5.4 | ^7.0",
-        "dhii/cqrs-resource-model-interface": "dev-task/initial-interfaces",
+        "dhii/cqrs-resource-model-interface": "^0.1",
         "rebelcode/sql-cqrs-resource-models-abstract": "dev-task/initial-classes",
+        "rebelcode/expression-wp-query-builder": "dev-task/initial-classes",
         "dhii/normalization-helper-base": "^0.1",
         "dhii/exception-helper-base": "^0.1",
         "dhii/data-container-base": "^0.1",
         "dhii/container-helper-base": "^0.1",
         "dhii/iterator-helper-base": "^0.1",
-        "dhii/i18n-helper-base": "^0.1"
+        "dhii/i18n-helper-base": "^0.1",
+        "dhii/invocable-interface": "0.1-alpha1"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
@@ -51,11 +53,5 @@
         "branch-alias": {
             "dev-develop": "0.1.x-dev"
         }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/Dhii/cqrs-resource-model-interface"
-        }
-    ]
+    }
 }

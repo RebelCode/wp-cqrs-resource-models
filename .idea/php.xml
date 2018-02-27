@@ -8,7 +8,6 @@
       <path value="$PROJECT_DIR$/vendor/dhii/validation-interface" />
       <path value="$PROJECT_DIR$/vendor/dhii/sql-interface" />
       <path value="$PROJECT_DIR$/vendor/dhii/data-key-value-aware-interface" />
-      <path value="$PROJECT_DIR$/vendor/dhii/exception-interface" />
       <path value="$PROJECT_DIR$/vendor/dhii/output-renderer-interface" />
       <path value="$PROJECT_DIR$/vendor/dhii/stringable-interface" />
       <path value="$PROJECT_DIR$/vendor/dhii/expression-interface" />
@@ -60,6 +59,9 @@
       <path value="$PROJECT_DIR$/vendor/dhii/data-container-base" />
       <path value="$PROJECT_DIR$/vendor/dhii/i18n-interface" />
       <path value="$PROJECT_DIR$/vendor/dhii/i18n-helper-base" />
+      <path value="$PROJECT_DIR$/vendor/dhii/exception-interface" />
+      <path value="$PROJECT_DIR$/vendor/rebelcode/expression-wp-query-builder" />
+      <path value="$PROJECT_DIR$/vendor/dhii/invocable-interface" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />
