@@ -45,8 +45,8 @@ trait NormalizeWpPostDataArrayCapableTrait
             return $this->_normalizeWpPostDataAndMeta($postData);
         }
 
-        $metaKey = $this->_getWpPostDataMetaFieldKey();
-        $fields = $this->_getWpPostDataFieldsToKeysMap();
+        $metaKey = $this->_getPostMetaFieldKey();
+        $fields = $this->_getPostFieldKeyMap();
         $data = [
             $metaKey => []
         ];
@@ -83,8 +83,8 @@ trait NormalizeWpPostDataArrayCapableTrait
      */
     protected function _normalizeWpPostDataAndMeta($postData)
     {
-        $metaKey = $this->_getWpPostDataMetaFieldKey();
-        $fields = $this->_getWpPostDataFieldsToKeysMap();
+        $metaKey = $this->_getPostMetaFieldKey();
+        $fields = $this->_getPostFieldKeyMap();
         $data = [
              $metaKey => []
         ];
@@ -196,7 +196,7 @@ trait NormalizeWpPostDataArrayCapableTrait
      *
      * @return string[]|Stringable[] A list of post field key strings.
      */
-    abstract protected function _getWpPostDataFieldsToKeysMap();
+    abstract protected function _getPostFieldKeyMap();
 
     /**
      * Retrieves the key where meta data is found in post data arrays.
@@ -205,7 +205,7 @@ trait NormalizeWpPostDataArrayCapableTrait
      *
      * @return string The post meta key.
      */
-    abstract protected function _getWpPostDataMetaFieldKey();
+    abstract protected function _getPostMetaFieldKey();
 
     /**
      * Normalizes a value to its string representation.

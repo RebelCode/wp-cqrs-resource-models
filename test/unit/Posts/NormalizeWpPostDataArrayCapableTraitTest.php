@@ -41,8 +41,8 @@ class NormalizeWpPostDataArrayCapableTraitTest extends TestCase
             [
                 '_containerGet',
                 '_containerHas',
-                '_getWpPostDataFieldsToKeysMap',
-                '_getWpPostDataMetaFieldKey',
+                '_getPostFieldKeyMap',
+                '_getPostMetaFieldKey',
                 '_normalizeString',
                 '_createInvalidArgumentException',
                 '__',
@@ -360,10 +360,10 @@ class NormalizeWpPostDataArrayCapableTraitTest extends TestCase
             $field2 => $column2,
             $field3 => $column3,
         ];
-        $subject->method('_getWpPostDataFieldsToKeysMap')->willReturn($fieldsMap);
+        $subject->method('_getPostFieldKeyMap')->willReturn($fieldsMap);
 
         $metaField = uniqid('meta-');
-        $subject->method('_getWpPostDataMetaFieldKey')->willReturn($metaField);
+        $subject->method('_getPostMetaFieldKey')->willReturn($metaField);
 
         $expected = [
             $column1   => $value1,
@@ -426,10 +426,10 @@ class NormalizeWpPostDataArrayCapableTraitTest extends TestCase
             $field2 => $column2,
             $field3 => $column3,
         ];
-        $subject->method('_getWpPostDataFieldsToKeysMap')->willReturn($fieldsMap);
+        $subject->method('_getPostFieldKeyMap')->willReturn($fieldsMap);
 
         $metaField = uniqid('meta-');
-        $subject->method('_getWpPostDataMetaFieldKey')->willReturn($metaField);
+        $subject->method('_getPostMetaFieldKey')->willReturn($metaField);
 
         $expected = [
             $column1   => $value1,
