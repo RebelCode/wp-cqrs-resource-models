@@ -3,6 +3,7 @@
 namespace RebelCode\Storage\Resource\WordPress\Wpdb\UnitTest;
 
 use Dhii\Expression\LogicalExpressionInterface;
+use Dhii\Storage\Resource\Sql\OrderInterface;
 use InvalidArgumentException;
 use RebelCode\Storage\Resource\WordPress\Wpdb\UpdateCapableWpdbTrait as TestSubject;
 use Xpmock\TestCase;
@@ -65,6 +66,36 @@ class UpdateCapableWpdbTraitTest extends TestCase
             }
         );
         $mock->method('__')->will($this->returnArgument(0));
+
+        return $mock;
+    }
+
+    /**
+     * Creates a mock OrderInterface instance.
+     *
+     * @since [*next-version*]
+     *
+     * @param string $entity The entity.
+     * @param string $field  The field.
+     * @param bool   $isAsc  The ascending flag.
+     *
+     * @return MockObject|OrderInterface The created instance.
+     */
+    public function createOrdering($entity = '', $field = '', $isAsc = true)
+    {
+        $mock = $this->getMockBuilder('Dhii\Storage\Resource\Sql\OrderInterface')
+                     ->setMethods(
+                         [
+                             'getEntity',
+                             'getField',
+                             'isAscending',
+                         ]
+                     )
+                     ->getMockForAbstractClass();
+
+        $mock->method('getEntity')->willReturn($entity);
+        $mock->method('getField')->willReturn($field);
+        $mock->method('isAscending')->willReturn($isAsc);
 
         return $mock;
     }
@@ -140,6 +171,11 @@ class UpdateCapableWpdbTraitTest extends TestCase
             $field2 = uniqid('field-') => $val2 = uniqid('value-'),
             $field3 = uniqid('field-') => $val3 = uniqid('value-'),
         ];
+        $ordering = [
+            $this->createOrdering(),
+            $this->createOrdering(),
+        ];
+        $limit = rand(0, 100);
 
         // Count is larger than 0
         $subject->method('_countIterable')->willReturn(count($changeSet));
@@ -188,7 +224,7 @@ class UpdateCapableWpdbTraitTest extends TestCase
         ];
         $subject->expects($this->atLeastOnce())
                 ->method('_buildUpdateSql')
-                ->with($table, $processedChangeSet, $condition, $expectedHashMap)
+                ->with($table, $processedChangeSet, $condition, $ordering, $limit, $expectedHashMap)
                 ->willReturn($query);
 
         // Expectation for query execution
@@ -199,6 +235,6 @@ class UpdateCapableWpdbTraitTest extends TestCase
                     array_flip($expectedHashMap)
                 );
 
-        $reflect->_update($changeSet, $condition);
+        $reflect->_update($changeSet, $condition, $ordering, $limit);
     }
 }

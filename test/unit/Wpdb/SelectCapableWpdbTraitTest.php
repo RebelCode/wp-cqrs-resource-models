@@ -4,8 +4,9 @@ namespace RebelCode\Storage\Resource\WordPress\Wpdb\UnitTest;
 
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Storage\Resource\Sql\EntityFieldInterface;
+use Dhii\Storage\Resource\Sql\OrderInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Xpmock\TestCase;
 
 /**
@@ -29,7 +30,7 @@ class SelectCapableWpdbTraitTest extends TestCase
      *
      * @param array $methods Optional additional mock methods.
      *
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      */
     public function createInstance(array $methods = [])
     {
@@ -93,6 +94,36 @@ class SelectCapableWpdbTraitTest extends TestCase
     }
 
     /**
+     * Creates a mock OrderInterface instance.
+     *
+     * @since [*next-version*]
+     *
+     * @param string $entity The entity.
+     * @param string $field  The field.
+     * @param bool   $isAsc  The ascending flag.
+     *
+     * @return MockObject|OrderInterface The created instance.
+     */
+    public function createOrdering($entity = '', $field = '', $isAsc = true)
+    {
+        $mock = $this->getMockBuilder('Dhii\Storage\Resource\Sql\OrderInterface')
+                     ->setMethods(
+                         [
+                             'getEntity',
+                             'getField',
+                             'isAscending',
+                         ]
+                     )
+                     ->getMockForAbstractClass();
+
+        $mock->method('getEntity')->willReturn($entity);
+        $mock->method('getField')->willReturn($field);
+        $mock->method('isAscending')->willReturn($isAsc);
+
+        return $mock;
+    }
+
+    /**
      * Tests whether a valid instance of the test subject can be created.
      *
      * @since [*next-version*]
@@ -136,6 +167,12 @@ class SelectCapableWpdbTraitTest extends TestCase
             $this->createLogicalExpression(uniqid('type-'), []),
             $this->createLogicalExpression(uniqid('type-'), []),
         ];
+        $ordering = [
+            $this->createOrdering(),
+            $this->createOrdering(),
+        ];
+        $limit = rand(50, 100);
+        $offset = rand(0, 50);
         $query = uniqid('query-');
 
         $subject->method('_getSqlSelectColumns')->willReturn($cols);
@@ -149,7 +186,7 @@ class SelectCapableWpdbTraitTest extends TestCase
 
         $subject->expects($this->once())
                 ->method('_buildSelectSql')
-                ->with($cols, $tables, $joins, $condition, $vhm)
+                ->with($cols, $tables, $joins, $condition, $ordering, $limit, $offset, $vhm)
                 ->willReturn($query);
 
         $expected = [
@@ -163,7 +200,7 @@ class SelectCapableWpdbTraitTest extends TestCase
                 ->with($query, $hvm)
                 ->willReturn($expected);
 
-        $result = $reflect->_select($condition);
+        $result = $reflect->_select($condition, $ordering, $limit, $offset);
 
         $this->assertEquals($expected, $result, 'Expected and retrieved results do not match');
     }

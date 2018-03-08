@@ -3,6 +3,7 @@
 namespace RebelCode\Storage\Resource\WordPress\Wpdb\UnitTest;
 
 use Dhii\Expression\LogicalExpressionInterface;
+use Dhii\Storage\Resource\Sql\OrderInterface;
 use RebelCode\Storage\Resource\WordPress\Wpdb\DeleteCapableWpdbTrait as TestSubject;
 use Xpmock\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -46,6 +47,36 @@ class DeleteCapableWpdbTraitTest extends TestCase
         $mock = $this->getMockBuilder(static::TEST_SUBJECT_CLASSNAME)
                      ->setMethods($methods)
                      ->getMockForTrait();
+
+        return $mock;
+    }
+
+    /**
+     * Creates a mock OrderInterface instance.
+     *
+     * @since [*next-version*]
+     *
+     * @param string $entity The entity.
+     * @param string $field  The field.
+     * @param bool   $isAsc  The ascending flag.
+     *
+     * @return MockObject|OrderInterface The created instance.
+     */
+    public function createOrdering($entity = '', $field = '', $isAsc = true)
+    {
+        $mock = $this->getMockBuilder('Dhii\Storage\Resource\Sql\OrderInterface')
+                     ->setMethods(
+                         [
+                             'getEntity',
+                             'getField',
+                             'isAscending',
+                         ]
+                     )
+                     ->getMockForAbstractClass();
+
+        $mock->method('getEntity')->willReturn($entity);
+        $mock->method('getField')->willReturn($field);
+        $mock->method('isAscending')->willReturn($isAsc);
 
         return $mock;
     }
@@ -131,16 +162,23 @@ class DeleteCapableWpdbTraitTest extends TestCase
         ];
         $subject->method('_getWpdbExpressionHashMap')->willReturn($hashMap);
 
+        $ordering = [
+            $this->createOrdering(),
+            $this->createOrdering(),
+        ];
+        $limit = rand(0, 100);
+        $offset = rand(0, 50);
+
         $query = uniqid('query-');
         $subject->expects($this->atLeastOnce())
                 ->method('_buildDeleteSql')
-                ->with($table, $condition, $hashMap)
+                ->with($table, $condition, $ordering, $limit, $offset, $hashMap)
                 ->willReturn($query);
 
         $subject->expects($this->once())
                 ->method('_executeWpdbQuery')
                 ->with($query, array_flip($hashMap));
 
-        $reflect->_delete($condition);
+        $reflect->_delete($condition, $ordering, $limit, $offset);
     }
 }

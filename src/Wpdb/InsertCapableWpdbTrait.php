@@ -163,19 +163,16 @@ trait InsertCapableWpdbTrait
      *
      * @since [*next-version*]
      *
-     * @param string|Stringable     $table        The name of the table to insert into.
-     * @param string[]|Stringable[] $columns      A list of columns names. The order is preserved in the built query.
-     * @param array                 $rowSet       The record data as a map of column names to values.
-     * @param array                 $valueHashMap Optional map of value names and their hashes.
+     * @param string|Stringable $table        The name of the table to insert into.
+     * @param array|Traversable $columns      A list of columns names. The order is preserved in the built query.
+     * @param array|Traversable $records      The list of record data containers.
+     * @param array             $valueHashMap Optional map of value names and their hashes.
+     *
+     * @throws InvalidArgumentException If the row set is empty.
      *
      * @return string The built INSERT query.
      */
-    abstract protected function _buildInsertSql(
-        $table,
-        array $columns,
-        array $rowSet,
-        array $valueHashMap = []
-    );
+    abstract protected function _buildInsertSql($table, $columns, $records, array $valueHashMap = []);
 
     /**
      * Retrieves the SQL database table name for use in SQL INSERT queries.

@@ -2,18 +2,30 @@
 
 namespace RebelCode\Storage\Resource\WordPress\Wpdb;
 
+use Dhii\Data\Container\ContainerGetCapableTrait;
+use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
+use Dhii\Data\Container\CreateNotFoundExceptionCapableTrait;
+use Dhii\Data\Container\NormalizeKeyCapableTrait;
+use Dhii\Exception\CreateInternalExceptionCapableTrait;
 use Dhii\Exception\CreateInvalidArgumentExceptionCapableTrait;
+use Dhii\Exception\CreateOutOfBoundsExceptionCapableTrait;
+use Dhii\Exception\CreateOutOfRangeExceptionCapableTrait;
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Expression\TermInterface;
 use Dhii\I18n\StringTranslatingTrait;
 use Dhii\Output\TemplateInterface;
 use Dhii\Storage\Resource\DeleteCapableInterface;
 use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
+use Dhii\Util\Normalization\NormalizeIntCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use RebelCode\Storage\Resource\Sql\BuildDeleteSqlCapableTrait;
+use RebelCode\Storage\Resource\Sql\BuildSqlLimitCapableTrait;
+use RebelCode\Storage\Resource\Sql\BuildSqlOffsetCapableTrait;
+use RebelCode\Storage\Resource\Sql\BuildSqlOrderByCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlWhereClauseCapableTrait;
 use RebelCode\Storage\Resource\Sql\EscapeSqlReferenceCapableTrait;
+use RebelCode\Storage\Resource\Sql\GetSqlColumnNameCapableContainerTrait;
 use RebelCode\Storage\Resource\Sql\RenderSqlExpressionCapableTrait;
 use RebelCode\Storage\Resource\Sql\SqlExpressionTemplateAwareTrait;
 use RebelCode\Storage\Resource\Sql\SqlFieldColumnMapAwareTrait;
@@ -56,6 +68,27 @@ class WpdbDeleteResourceModel extends AbstractWpdbResourceModel implements Delet
      * @since [*next-version*]
      */
     use BuildSqlWhereClauseCapableTrait;
+
+    /*
+     * Provides SQL ORDER BY building functionality.
+     *
+     * @since [*next-version*]
+     */
+    use BuildSqlOrderByCapableTrait;
+
+    /*
+     * Provides SQL LIMIT building functionality.
+     *
+     * @since [*next-version*]
+     */
+    use BuildSqlLimitCapableTrait;
+
+    /*
+     * Provides SQL OFFSET building functionality.
+     *
+     * @since [*next-version*]
+     */
+    use BuildSqlOffsetCapableTrait;
 
     /*
      * Provides WPDB expression value hash map generation functionality.
@@ -107,11 +140,25 @@ class WpdbDeleteResourceModel extends AbstractWpdbResourceModel implements Delet
     use SqlFieldColumnMapAwareTrait;
 
     /*
+     * Provides functionality for retrieving the column name for a field name, using a container.
+     *
+     * @since [*next-version*]
+     */
+    use GetSqlColumnNameCapableContainerTrait;
+
+    /*
      * Provides SQL expression template storage functionality.
      *
      * @since [*next-version*]
      */
     use SqlExpressionTemplateAwareTrait;
+
+    /*
+     * Provides integer normalization functionality.
+     *
+     * @since [*next-version*]
+     */
+    use NormalizeIntCapableTrait;
 
     /*
      * Provides string normalization functionality.
@@ -121,6 +168,13 @@ class WpdbDeleteResourceModel extends AbstractWpdbResourceModel implements Delet
     use NormalizeStringCapableTrait;
 
     /*
+     * Provides container key normalization functionality.
+     *
+     * @since [*next-version*]
+     */
+    use NormalizeKeyCapableTrait;
+
+    /*
      * Provides array normalization functionality.
      *
      * @since [*next-version*]
@@ -128,11 +182,53 @@ class WpdbDeleteResourceModel extends AbstractWpdbResourceModel implements Delet
     use NormalizeArrayCapableTrait;
 
     /*
+     * Provides functionality for reading from any type of container object.
+     *
+     * @since [*next-version*]
+     */
+    use ContainerGetCapableTrait;
+
+    /*
      * Provides functionality for creating invalid argument exceptions.
      *
      * @since [*next-version*]
      */
     use CreateInvalidArgumentExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating out-of-range exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateOutOfRangeExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating out-of-bounds exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateOutOfBoundsExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating container exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateContainerExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating container not-found exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateNotFoundExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating internal exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateInternalExceptionCapableTrait;
 
     /*
      * Provides string translating functionality.
@@ -164,9 +260,13 @@ class WpdbDeleteResourceModel extends AbstractWpdbResourceModel implements Delet
      *
      * @since [*next-version*]
      */
-    public function delete(LogicalExpressionInterface $condition = null)
-    {
-        $this->_delete($condition);
+    public function delete(
+        LogicalExpressionInterface $condition = null,
+        $ordering = null,
+        $limit = null,
+        $offset = null
+    ) {
+        $this->_delete($condition, $ordering, $limit, $offset);
     }
 
     /**

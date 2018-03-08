@@ -4,7 +4,10 @@ namespace RebelCode\Storage\Resource\WordPress\Wpdb;
 
 use Dhii\Expression\ExpressionInterface;
 use Dhii\Expression\LogicalExpressionInterface;
+use Dhii\Storage\Resource\Sql\OrderInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
+use InvalidArgumentException;
+use OutOfRangeException;
 use Traversable;
 
 /**
@@ -19,13 +22,20 @@ trait SelectCapableWpdbTrait
      *
      * @since [*next-version*]
      *
-     * @param LogicalExpressionInterface|null $condition Optional condition that records must satisfy.
-     *                                                   If null, all records in the target table are retrieved.
+     * @param LogicalExpressionInterface|null   $condition Optional condition that records must satisfy.
+     *                                                     If null, all records in the target table are retrieved.
+     * @param OrderInterface[]|Traversable|null $ordering  The ordering, as a list of OrderInterface instances.
+     * @param int|null                          $limit     The number of records to limit the query to.
+     * @param int|null                          $offset    The number of records to offset by, zero-based.
      *
      * @return array|Traversable A list of retrieved records.
      */
-    protected function _select(LogicalExpressionInterface $condition = null)
-    {
+    protected function _select(
+        LogicalExpressionInterface $condition = null,
+        $ordering = null,
+        $limit = null,
+        $offset = null
+    ) {
         $fields = $this->_getSqlSelectFieldNames();
         $valueHashMap = ($condition !== null)
             ? $this->_getWpdbExpressionHashMap($condition, $fields)
@@ -36,6 +46,9 @@ trait SelectCapableWpdbTrait
             $this->_getSqlSelectTables(),
             $this->_getSqlSelectJoinConditions(),
             $condition,
+            $ordering,
+            $limit,
+            $offset,
             $valueHashMap
         );
 
@@ -47,11 +60,17 @@ trait SelectCapableWpdbTrait
      *
      * @since [*next-version*]
      *
-     * @param string[]|Stringable[]           $columns        A list of names of columns to select.
-     * @param array                           $tables         A list of names of tables to select from.
-     * @param LogicalExpressionInterface[]    $joinConditions Optional list of JOIN conditions, keyed by table name.
-     * @param LogicalExpressionInterface|null $whereCondition Optional WHERE condition.
-     * @param array                           $valueHashMap   Optional map of value names and their hashes.
+     * @param string[]|Stringable[]             $columns        A list of names of columns to select.
+     * @param array                             $tables         A list of names of tables to select from.
+     * @param LogicalExpressionInterface[]      $joinConditions Optional list of JOIN conditions, keyed by table name.
+     * @param LogicalExpressionInterface|null   $whereCondition Optional WHERE condition.
+     * @param OrderInterface[]|Traversable|null $ordering       The ordering, as a list of OrderInterface instances.
+     * @param int|null                          $limit          The number of records to limit the query to.
+     * @param int|null                          $offset         The number of records to offset by, zero-based.
+     * @param array                             $valueHashMap   Optional map of value names and their hashes.
+     *
+     * @throws InvalidArgumentException If an argument is invalid.
+     * @throws OutOfRangeException      If the limit or offset are invalid numbers.
      *
      * @return string The built SQL query string.
      */
@@ -60,6 +79,9 @@ trait SelectCapableWpdbTrait
         array $tables,
         array $joinConditions = [],
         LogicalExpressionInterface $whereCondition = null,
+        $ordering = null,
+        $limit = null,
+        $offset = null,
         array $valueHashMap = []
     );
 

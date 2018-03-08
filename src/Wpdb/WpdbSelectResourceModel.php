@@ -2,7 +2,13 @@
 
 namespace RebelCode\Storage\Resource\WordPress\Wpdb;
 
+use Dhii\Data\Container\ContainerGetCapableTrait;
+use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
+use Dhii\Data\Container\CreateNotFoundExceptionCapableTrait;
+use Dhii\Exception\CreateInternalExceptionCapableTrait;
 use Dhii\Exception\CreateInvalidArgumentExceptionCapableTrait;
+use Dhii\Exception\CreateOutOfBoundsExceptionCapableTrait;
+use Dhii\Exception\CreateOutOfRangeExceptionCapableTrait;
 use Dhii\Expression\ExpressionInterface;
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Expression\TermInterface;
@@ -10,12 +16,18 @@ use Dhii\I18n\StringTranslatingTrait;
 use Dhii\Output\TemplateInterface;
 use Dhii\Storage\Resource\SelectCapableInterface;
 use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
+use Dhii\Util\Normalization\NormalizeIntCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use RebelCode\Storage\Resource\Sql\BuildSelectSqlCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlJoinsCapableTrait;
+use RebelCode\Storage\Resource\Sql\BuildSqlLimitCapableTrait;
+use RebelCode\Storage\Resource\Sql\BuildSqlOffsetCapableTrait;
+use RebelCode\Storage\Resource\Sql\BuildSqlOrderByCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlWhereClauseCapableTrait;
 use RebelCode\Storage\Resource\Sql\EscapeSqlReferenceCapableTrait;
+use RebelCode\Storage\Resource\Sql\EscapeSqlReferenceListCapableTrait;
+use RebelCode\Storage\Resource\Sql\GetSqlColumnNameCapableContainerTrait;
 use RebelCode\Storage\Resource\Sql\RenderSqlExpressionCapableTrait;
 use RebelCode\Storage\Resource\Sql\SqlColumnNamesAwareTrait;
 use RebelCode\Storage\Resource\Sql\SqlExpressionTemplateAwareTrait;
@@ -69,11 +81,39 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
     use BuildSqlWhereClauseCapableTrait;
 
     /*
+     * Provides SQL ORDER BY building functionality.
+     *
+     * @since [*next-version*]
+     */
+    use BuildSqlOrderByCapableTrait;
+
+    /*
+     * Provides SQL LIMIT building functionality.
+     *
+     * @since [*next-version*]
+     */
+    use BuildSqlLimitCapableTrait;
+
+    /*
+     * Provides SQL OFFSET building functionality.
+     *
+     * @since [*next-version*]
+     */
+    use BuildSqlOffsetCapableTrait;
+
+    /*
      * Provides SQL reference escaping functionality.
      *
      * @since [*next-version*]
      */
     use EscapeSqlReferenceCapableTrait;
+
+    /*
+     * Provides SQL reference list escaping functionality.
+     *
+     * @since [*next-version*]
+     */
+    use EscapeSqlReferenceListCapableTrait;
 
     /*
      * Provides WPDB expression value hash map generation functionality.
@@ -111,6 +151,13 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
     use SqlFieldColumnMapAwareTrait;
 
     /*
+     * Provides functionality for retrieving the column name for a field name, using a container.
+     *
+     * @since [*next-version*]
+     */
+    use GetSqlColumnNameCapableContainerTrait;
+
+    /*
      * Provides SQL field name list storage functionality.
      *
      * @since [*next-version*]
@@ -139,6 +186,13 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
     use SqlExpressionTemplateAwareTrait;
 
     /*
+     * Provides integer normalization functionality.
+     *
+     * @since [*next-version*]
+     */
+    use NormalizeIntCapableTrait;
+
+    /*
      * Provides string normalization functionality.
      *
      * @since [*next-version*]
@@ -153,11 +207,53 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
     use NormalizeArrayCapableTrait;
 
     /*
+     * Provides functionality for reading from any type of container object.
+     *
+     * @since [*next-version*]
+     */
+    use ContainerGetCapableTrait;
+
+    /*
      * Provides functionality for creating invalid argument exceptions.
      *
      * @since [*next-version*]
      */
     use CreateInvalidArgumentExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating out-of-range exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateOutOfRangeExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating out-of-bounds exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateOutOfBoundsExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating container exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateContainerExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating container not-found exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateNotFoundExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating internal exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateInternalExceptionCapableTrait;
 
     /*
      * Provides string translating functionality.
@@ -203,9 +299,13 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
      *
      * @since [*next-version*]
      */
-    public function select(LogicalExpressionInterface $condition = null)
-    {
-        return $this->_select($condition);
+    public function select(
+        LogicalExpressionInterface $condition = null,
+        $ordering = null,
+        $limit = null,
+        $offset = null
+    ) {
+        return $this->_select($condition, $ordering, $limit, $offset);
     }
 
     /**

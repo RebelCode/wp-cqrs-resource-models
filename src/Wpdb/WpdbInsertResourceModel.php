@@ -8,13 +8,17 @@ use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
 use Dhii\Data\Container\CreateNotFoundExceptionCapableTrait;
 use Dhii\Data\Container\NormalizeContainerCapableTrait;
 use Dhii\Exception\CreateInvalidArgumentExceptionCapableTrait;
+use Dhii\Exception\CreateOutOfRangeExceptionCapableTrait;
 use Dhii\I18n\StringTranslatingTrait;
 use Dhii\Storage\Resource\InsertCapableInterface;
 use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use RebelCode\Storage\Resource\Sql\BuildInsertSqlCapableTrait;
+use RebelCode\Storage\Resource\Sql\BuildSqlRecordValuesCapableTrait;
 use RebelCode\Storage\Resource\Sql\EscapeSqlReferenceCapableTrait;
+use RebelCode\Storage\Resource\Sql\EscapeSqlReferenceListCapableTrait;
+use RebelCode\Storage\Resource\Sql\NormalizeSqlValueCapableTrait;
 use RebelCode\Storage\Resource\Sql\SqlColumnNamesAwareTrait;
 use RebelCode\Storage\Resource\Sql\SqlFieldColumnMapAwareTrait;
 use RebelCode\Storage\Resource\Sql\SqlTableAwareTrait;
@@ -46,11 +50,25 @@ class WpdbInsertResourceModel extends AbstractWpdbResourceModel implements Inser
     use BuildInsertSqlCapableTrait;
 
     /*
+     * Provides functionality for the VALUES in INSERT SQL queries.
+     *
+     * @since [*next-version*]
+     */
+    use BuildSqlRecordValuesCapableTrait;
+
+    /*
      * Provides SQL reference escaping functionality.
      *
      * @since [*next-version*]
      */
     use EscapeSqlReferenceCapableTrait;
+
+    /*
+     * Provides SQL reference list escaping functionality.
+     *
+     * @since [*next-version*]
+     */
+    use EscapeSqlReferenceListCapableTrait;
 
     /*
      * Provides WPDB value hash generation functionality.
@@ -116,11 +134,25 @@ class WpdbInsertResourceModel extends AbstractWpdbResourceModel implements Inser
     use NormalizeArrayCapableTrait;
 
     /*
+     * Provides SQL value normalization functionality.
+     *
+     * @since [*next-version*]
+     */
+    use NormalizeSqlValueCapableTrait;
+
+    /*
      * Provides functionality for creating invalid argument exceptions.
      *
      * @since [*next-version*]
      */
     use CreateInvalidArgumentExceptionCapableTrait;
+
+    /*
+     * Provides functionality for creating out-of-range exceptions.
+     *
+     * @since [*next-version*]
+     */
+    use CreateOutOfRangeExceptionCapableTrait;
 
     /*
      * Provides functionality for creating container exceptions.
