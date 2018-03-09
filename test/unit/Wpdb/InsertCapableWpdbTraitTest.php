@@ -36,6 +36,7 @@ class InsertCapableWpdbTraitTest extends TestCase
         $methods = $this->mergeValues(
             $methods,
             [
+                '_getWpdbLastInsertedId',
                 '_containerGet',
                 '_containerHas',
                 '_getWpdbValueHashString',
@@ -151,12 +152,12 @@ class InsertCapableWpdbTraitTest extends TestCase
     }
 
     /**
-     * Tests the insert method to ensure that the value hash map is correctly generated, all the required information is
-     * given to the SQL builder method and the query execution method.
+     * Tests the insert method in bulk insertion mode to ensure that the value hash map is correctly generated, all the
+     * required information is given to the SQL builder method and the query execution method.
      *
      * @since [*next-version*]
      */
-    public function testInsert()
+    public function testInsertBulk()
     {
         $subject = $this->createInstance();
         $reflect = $this->reflect($subject);
@@ -202,11 +203,17 @@ class InsertCapableWpdbTraitTest extends TestCase
                 $c3 => $r2v2,
             ],
         ];
+        $id1 = rand(1, 100);
+        $id2 = rand(1, 100);
+        // MySql gives the ID of the first record in the batch
+        $expectedIds = [$id1];
 
+        $subject->method('_canWpdbInsertBulk')->willReturn(true);
         $subject->method('_getSqlInsertTable')->willReturn($table);
         $subject->method('_getSqlInsertColumnNames')->willReturn($columns);
         $subject->method('_getSqlInsertFieldColumnMap')->willReturn($fieldColMap);
         $subject->method('_getWpdbValueHashString')->willReturn($hash);
+        $subject->method('_getWpdbLastInsertedId')->willReturnOnConsecutiveCalls($id1, $id2);
 
         $subject->expects($this->atLeastOnce())
                 ->method('_buildInsertSql')
@@ -217,6 +224,94 @@ class InsertCapableWpdbTraitTest extends TestCase
                 ->method('_executeWpdbQuery')
                 ->with($query, array_flip($expectedValueHashMap));
 
-        $reflect->_insert($input);
+        $actual = $reflect->_insert($input);
+
+        $this->assertEquals($expectedIds, $actual, 'Expected and retrieved inserted IDs do not match.');
+    }
+
+    /**
+     * Tests the insert method in single record insertion mode, to ensure that the value hash map is correctly
+     * generated, all required information is given to the SQL builder method and the query execution method.
+     *
+     * @since [*next-version*]
+     */
+    public function testInsertSingles()
+    {
+        $subject = $this->createInstance();
+        $reflect = $this->reflect($subject);
+
+        $table = uniqid('table-');
+        $columns = [
+            $c1 = uniqid('column-'),
+            $c2 = uniqid('column-'),
+            $c3 = uniqid('column-'),
+        ];
+        $fieldColMap = [
+            $f1 = uniqid('field-') => $c1,
+            $f2 = uniqid('field-') => $c2,
+            $f3 = uniqid('field-') => $c3,
+        ];
+        $input = [
+            [
+                $f1 => $r1v1 = uniqid('value-'),
+                $f2 => $r1v2 = uniqid('value-'),
+                $f3 => $r1v3 = uniqid('value-'),
+            ],
+            [
+                $f2 => $r2v1 = uniqid('value-'),
+                $f3 => $r2v2 = uniqid('value-'),
+            ],
+        ];
+        $hash = uniqid('hash-');
+        $expectedValueHashMap1 = [
+            $r1v1 => $hash,
+            $r1v2 => $hash,
+            $r1v3 => $hash,
+        ];
+        $expectedValueHashMap2 = [
+            $r2v1 => $hash,
+            $r2v2 => $hash,
+        ];
+        $expectedRowSet = [
+            [
+                $c1 => $r1v1,
+                $c2 => $r1v2,
+                $c3 => $r1v3,
+            ],
+            [
+                $c2 => $r2v1,
+                $c3 => $r2v2,
+            ],
+        ];
+        $expectedIds = [
+            $id1 = rand(1, 100),
+            $id2 = rand(1, 100),
+        ];
+
+        $subject->method('_canWpdbInsertBulk')->willReturn(false);
+        $subject->method('_getSqlInsertTable')->willReturn($table);
+        $subject->method('_getSqlInsertColumnNames')->willReturn($columns);
+        $subject->method('_getSqlInsertFieldColumnMap')->willReturn($fieldColMap);
+        $subject->method('_getWpdbValueHashString')->willReturn($hash);
+        $subject->method('_getWpdbLastInsertedId')->willReturnOnConsecutiveCalls($id1, $id2);
+
+        $subject->expects($this->exactly(count($input)))
+                ->method('_buildInsertSql')
+                ->withConsecutive(
+                    [$table, $columns, [$expectedRowSet[0]], $expectedValueHashMap1],
+                    [$table, $columns, [$expectedRowSet[1]], $expectedValueHashMap2]
+                )
+                ->willReturn($query = uniqid('query-'));
+
+        $subject->expects($this->exactly(count($input)))
+                ->method('_executeWpdbQuery')
+                ->withConsecutive(
+                    [$query, array_flip($expectedValueHashMap1)],
+                    [$query, array_flip($expectedValueHashMap2)]
+                );
+
+        $actual = $reflect->_insert($input);
+
+        $this->assertEquals($expectedIds, $actual, 'Expected and retrieved inserted IDs do not match.');
     }
 }

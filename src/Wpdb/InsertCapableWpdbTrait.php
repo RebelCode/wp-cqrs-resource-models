@@ -11,6 +11,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use stdClass;
 use Traversable;
+use \wpdb;
 
 /**
  * Common functionality for objects that can insert records into a database using WPDB.
@@ -27,8 +28,40 @@ trait InsertCapableWpdbTrait
      * @param array[]|ArrayAccess[]|stdClass[]|ContainerInterface[]|Traversable $records A list of records to insert.
      *
      * @throws ContainerExceptionInterface If an error occurred while reading from a record's container.
+     *
+     * @return array|stdClass|Traversable The IDs of the inserted records.
      */
     protected function _insert($records)
+    {
+        if ($this->_canWpdbInsertBulk()) {
+            return $this->_execInsert($records);
+        }
+
+        $ids = [];
+
+        foreach ($records as $_record) {
+            $_recordIds = $this->_execInsert([$_record]);
+
+            if (count($_recordIds) > 0) {
+                $ids[] = $_recordIds[0];
+            }
+        }
+
+        return $ids;
+    }
+
+    /**
+     * Executes an INSERT SQL query, inserting multiple records into the database.
+     *
+     * @since [*next-version*]
+     *
+     * @param array[]|ArrayAccess[]|stdClass[]|ContainerInterface[]|Traversable $records A list of records to insert.
+     *
+     * @throws ContainerExceptionInterface If an error occurred while reading from a record's container.
+     *
+     * @return array|stdClass|Traversable The IDs of the inserted records.
+     */
+    protected function _execInsert($records)
     {
         $processedRecords = $this->_preProcessRecords($records, $valueHashMap);
 
@@ -40,6 +73,8 @@ trait InsertCapableWpdbTrait
         );
 
         $this->_executeWpdbQuery($query, array_flip($valueHashMap));
+
+        return [$this->_getWpdbLastInsertedId()];
     }
 
     /**
@@ -114,6 +149,24 @@ trait InsertCapableWpdbTrait
 
         return $result;
     }
+
+    /**
+     * Retrieves the ID of the record that was last inserted with WPDB.
+     *
+     * @since [*next-version*]
+     *
+     * @return int|string|Stringable The last inserted ID.
+     */
+    abstract protected function _getWpdbLastInsertedId();
+
+    /**
+     * Retrieves whether or not multiple records can be inserted in bulk (in a single INSERT query).
+     *
+     * @since [*next-version*]
+     *
+     * @return bool True if records should be inserted in a single query, false otherwise.
+     */
+    abstract protected function _canWpdbInsertBulk();
 
     /**
      * Retrieves a value from a container or data set.
