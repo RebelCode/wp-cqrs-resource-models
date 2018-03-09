@@ -198,7 +198,7 @@ class WpdbInsertResourceModel extends AbstractWpdbResourceModel implements Inser
      */
     public function insert($records)
     {
-        $this->_insert($records);
+        return $this->_insert($records);
     }
 
     /**
