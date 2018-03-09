@@ -72,9 +72,14 @@ class WpdbInsertResourceModelTest extends TestCase
             eval($definition);
         }
 
-        return $this->getMockBuilder($className)
+        $mock = $this->getMockBuilder($className)
                     ->setMethods(['prepare', 'query'])
                     ->getMockForAbstractClass();
+
+        // Init property
+        $mock->insert_id = null;
+
+        return $mock;
     }
 
     /**

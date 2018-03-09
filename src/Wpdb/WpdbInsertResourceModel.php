@@ -43,6 +43,13 @@ class WpdbInsertResourceModel extends AbstractWpdbResourceModel implements Inser
     use InsertCapableWpdbTrait;
 
     /*
+     * Provides functionality for retrieving the last inserted ID from WPDB.
+     *
+     * @since [*next-version*]
+     */
+    use GetWpdbLastInsertedIdCapableTrait;
+
+    /*
      * Provides functionality for building INSERT SQL queries.
      *
      * @since [*next-version*]
@@ -176,6 +183,15 @@ class WpdbInsertResourceModel extends AbstractWpdbResourceModel implements Inser
     use StringTranslatingTrait;
 
     /**
+     * The bulk insertion flag.
+     *
+     * @since [*next-version*]
+     *
+     * @var bool
+     */
+    protected $insertBulk;
+
+    /**
      * Constructor.
      *
      * @since [*next-version*]
@@ -183,12 +199,15 @@ class WpdbInsertResourceModel extends AbstractWpdbResourceModel implements Inser
      * @param wpdb                  $wpdb           The WPDB instance to use to prepare and execute queries.
      * @param string|Stringable     $table          The table to insert records into.
      * @param string[]|Stringable[] $fieldColumnMap A map of field names to table column names.
+     * @param bool                  $insertBulk     True to insert records in a single bulk query, false to insert them
+     *                                              in separate queries.
      */
-    public function __construct(wpdb $wpdb, $table, $fieldColumnMap)
+    public function __construct(wpdb $wpdb, $table, $fieldColumnMap, $insertBulk = true)
     {
         $this->_setWpdb($wpdb);
         $this->_setSqlTable($table);
         $this->_setSqlFieldColumnMap($fieldColumnMap);
+        $this->insertBulk = $insertBulk;
     }
 
     /**
@@ -241,5 +260,15 @@ class WpdbInsertResourceModel extends AbstractWpdbResourceModel implements Inser
     protected function _normalizeKey($key)
     {
         return $this->_normalizeString($key);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    protected function _canWpdbInsertBulk()
+    {
+        return $this->insertBulk;
     }
 }
