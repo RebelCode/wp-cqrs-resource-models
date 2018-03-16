@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad832eb661667433293b64c947380cec",
+    "content-hash": "18f9bc8d6424cef0b892438c7aabf434",
     "packages": [
         {
             "name": "dhii/container-helper-base",
@@ -165,23 +165,23 @@
         },
         {
             "name": "dhii/data-container-base",
-            "version": "dev-develop",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/data-container-base.git",
-                "reference": "1840642b307ab3f26ae191abe57b2f399469bdf5"
+                "reference": "3bd8346106a82fcc7d3c6ab19e109c2e434edae8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/data-container-base/zipball/1840642b307ab3f26ae191abe57b2f399469bdf5",
-                "reference": "1840642b307ab3f26ae191abe57b2f399469bdf5",
+                "url": "https://api.github.com/repos/Dhii/data-container-base/zipball/3bd8346106a82fcc7d3c6ab19e109c2e434edae8",
+                "reference": "3bd8346106a82fcc7d3c6ab19e109c2e434edae8",
                 "shasum": ""
             },
             "require": {
                 "dhii/data-container-abstract": "^0.1",
                 "dhii/data-container-interface": "^0.1 | ^0.2",
-                "dhii/exception-helper-base": "dev-develop",
-                "dhii/i18n-helper-base": "dev-develop",
+                "dhii/exception-helper-base": "0.1-alpha1|0.1-alpha2",
+                "dhii/i18n-helper-base": "0.1-alpha1",
                 "dhii/normalization-helper-base": "^0.1",
                 "php": "^5.4 | ^7.0"
             },
@@ -213,7 +213,7 @@
                 }
             ],
             "description": "Base functionality for container implementations",
-            "time": "2018-01-30T17:38:27+00:00"
+            "time": "2018-03-13T10:38:20+00:00"
         },
         {
             "name": "dhii/data-container-interface",
@@ -349,16 +349,16 @@
         },
         {
             "name": "dhii/exception",
-            "version": "v0.1-alpha1",
+            "version": "v0.1-alpha4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/exception.git",
-                "reference": "d228ddf648d2be0691aab9f956db7a4c1168ea28"
+                "reference": "848b8e2b7fe3a38456707bd6292baf1e7caaf9e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/exception/zipball/d228ddf648d2be0691aab9f956db7a4c1168ea28",
-                "reference": "d228ddf648d2be0691aab9f956db7a4c1168ea28",
+                "url": "https://api.github.com/repos/Dhii/exception/zipball/848b8e2b7fe3a38456707bd6292baf1e7caaf9e0",
+                "reference": "848b8e2b7fe3a38456707bd6292baf1e7caaf9e0",
                 "shasum": ""
             },
             "require": {
@@ -367,9 +367,13 @@
                 "dhii/normalization-helper-base": "^0.1",
                 "php": "^5.4 | ^7.0"
             },
+            "replace": {
+                "dhii/exception-helper-base": "0.1-alpha1|0.1-alpha2"
+            },
             "require-dev": {
                 "codeclimate/php-test-reporter": "<=0.3.2",
                 "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/stringable-interface": "^0.1",
                 "phpunit/phpunit": "^4.8",
                 "ptrofimov/xpmock": "^1.1"
             },
@@ -395,59 +399,7 @@
                 }
             ],
             "description": "Standards-compliant exception classes",
-            "time": "2018-03-07T09:45:52+00:00"
-        },
-        {
-            "name": "dhii/exception-helper-base",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Dhii/exception-helper-base.git",
-                "reference": "91ccca551b046a9c0b17bdf0ede9159e220327c1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/exception-helper-base/zipball/91ccca551b046a9c0b17bdf0ede9159e220327c1",
-                "reference": "91ccca551b046a9c0b17bdf0ede9159e220327c1",
-                "shasum": ""
-            },
-            "require": {
-                "dhii/exception": "0.1-alpha1",
-                "php": "^5.4 | ^7.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "<=0.3.2",
-                "dhii/php-cs-fixer-config": "^0.1",
-                "dhii/stringable-interface": "^0.1",
-                "phpunit/phpunit": "^4.8",
-                "ptrofimov/xpmock": "^1.1"
-            },
-            "suggest": {
-                "dhii/stringable-interface": "To be able to pass stringables instead of strings in some cases"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Dhii\\Exception\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dhii Team",
-                    "email": "development@dhii.co"
-                }
-            ],
-            "description": "Base functionality for exception helpers",
-            "time": "2018-03-07T10:02:04+00:00"
+            "time": "2018-03-16T13:46:13+00:00"
         },
         {
             "name": "dhii/exception-interface",
@@ -598,7 +550,7 @@
         },
         {
             "name": "dhii/i18n-helper-base",
-            "version": "dev-develop",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/i18n-helper-base.git",
@@ -690,20 +642,20 @@
         },
         {
             "name": "dhii/iterator-helper-base",
-            "version": "v0.1-alpha1",
+            "version": "dev-release/0.1-alpha2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/iterator-helper-base.git",
-                "reference": "10fabcefd8335732bdfd0884709aade8d63d31bf"
+                "reference": "e57df549c0bf81637c57d4be1654646dcf3d6548"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/iterator-helper-base/zipball/10fabcefd8335732bdfd0884709aade8d63d31bf",
-                "reference": "10fabcefd8335732bdfd0884709aade8d63d31bf",
+                "url": "https://api.github.com/repos/Dhii/iterator-helper-base/zipball/e57df549c0bf81637c57d4be1654646dcf3d6548",
+                "reference": "e57df549c0bf81637c57d4be1654646dcf3d6548",
                 "shasum": ""
             },
             "require": {
-                "dhii/exception-helper-base": "^0.1",
+                "dhii/exception": "0.1-alpha4",
                 "php": "^5.4 | ^7.0"
             },
             "require-dev": {
@@ -739,7 +691,7 @@
                 }
             ],
             "description": "Common functionality for working with iterables",
-            "time": "2018-02-14T14:54:51+00:00"
+            "time": "2018-03-16T16:03:04+00:00"
         },
         {
             "name": "dhii/normalization-helper-base",
@@ -3120,6 +3072,7 @@
     "stability-flags": {
         "rebelcode/sql-cqrs-resource-models-abstract": 20,
         "rebelcode/expression-wp-query-builder": 20,
+        "dhii/iterator-helper-base": 20,
         "dhii/factory-interface": 20
     },
     "prefer-stable": true,
