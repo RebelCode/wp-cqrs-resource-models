@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "18f9bc8d6424cef0b892438c7aabf434",
+    "content-hash": "42498f0800febc5ea87e4499366198a7",
     "packages": [
         {
             "name": "dhii/container-helper-base",
@@ -165,23 +165,23 @@
         },
         {
             "name": "dhii/data-container-base",
-            "version": "v0.1-alpha1",
+            "version": "v0.1-alpha2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/data-container-base.git",
-                "reference": "3bd8346106a82fcc7d3c6ab19e109c2e434edae8"
+                "reference": "ed3289171827cdc910d74c5ef76aab5f5985dace"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/data-container-base/zipball/3bd8346106a82fcc7d3c6ab19e109c2e434edae8",
-                "reference": "3bd8346106a82fcc7d3c6ab19e109c2e434edae8",
+                "url": "https://api.github.com/repos/Dhii/data-container-base/zipball/ed3289171827cdc910d74c5ef76aab5f5985dace",
+                "reference": "ed3289171827cdc910d74c5ef76aab5f5985dace",
                 "shasum": ""
             },
             "require": {
                 "dhii/data-container-abstract": "^0.1",
                 "dhii/data-container-interface": "^0.1 | ^0.2",
-                "dhii/exception-helper-base": "0.1-alpha1|0.1-alpha2",
-                "dhii/i18n-helper-base": "0.1-alpha1",
+                "dhii/exception": "^0.1",
+                "dhii/i18n-helper-base": "^0.1",
                 "dhii/normalization-helper-base": "^0.1",
                 "php": "^5.4 | ^7.0"
             },
@@ -213,7 +213,7 @@
                 }
             ],
             "description": "Base functionality for container implementations",
-            "time": "2018-03-13T10:38:20+00:00"
+            "time": "2018-03-16T18:58:30+00:00"
         },
         {
             "name": "dhii/data-container-interface",
@@ -642,20 +642,20 @@
         },
         {
             "name": "dhii/iterator-helper-base",
-            "version": "dev-release/0.1-alpha2",
+            "version": "v0.1-alpha2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/iterator-helper-base.git",
-                "reference": "e57df549c0bf81637c57d4be1654646dcf3d6548"
+                "reference": "cf62fb9f8b658a82815f15a2d906d8d1ff5c52ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/iterator-helper-base/zipball/e57df549c0bf81637c57d4be1654646dcf3d6548",
-                "reference": "e57df549c0bf81637c57d4be1654646dcf3d6548",
+                "url": "https://api.github.com/repos/Dhii/iterator-helper-base/zipball/cf62fb9f8b658a82815f15a2d906d8d1ff5c52ce",
+                "reference": "cf62fb9f8b658a82815f15a2d906d8d1ff5c52ce",
                 "shasum": ""
             },
             "require": {
-                "dhii/exception": "0.1-alpha4",
+                "dhii/exception": "^0.1-alpha4",
                 "php": "^5.4 | ^7.0"
             },
             "require-dev": {
@@ -691,7 +691,7 @@
                 }
             ],
             "description": "Common functionality for working with iterables",
-            "time": "2018-03-16T16:03:04+00:00"
+            "time": "2018-03-22T11:25:07+00:00"
         },
         {
             "name": "dhii/normalization-helper-base",
@@ -3072,7 +3072,6 @@
     "stability-flags": {
         "rebelcode/sql-cqrs-resource-models-abstract": 20,
         "rebelcode/expression-wp-query-builder": 20,
-        "dhii/iterator-helper-base": 20,
         "dhii/factory-interface": 20
     },
     "prefer-stable": true,
