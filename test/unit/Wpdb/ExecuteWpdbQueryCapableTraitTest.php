@@ -86,10 +86,7 @@ class ExecuteWpdbQueryCapableTraitTest extends TestCase
             uniqid('arg-'),
         ];
         $prepared = uniqid('prepared-');
-        $expected = [
-            uniqid('result-'),
-            uniqid('result-'),
-        ];
+        $expected = rand(0, 10);
 
         // Mock wpdb
         $wpdb = $this->getMockBuilder('stdClass')
@@ -102,6 +99,39 @@ class ExecuteWpdbQueryCapableTraitTest extends TestCase
         $wpdb->expects($this->once())
              ->method('query')
              ->with($prepared)
+             ->willReturn($expected);
+
+        $subject->method('_getWpdb')->willReturn($wpdb);
+
+        $actual = $reflect->_executeWpdbQuery($query, $args);
+
+        $this->assertEquals($expected, $actual, 'Expected and retrieved results do not match');
+    }
+
+    /**
+     * Tests the execute wpdb query method with no args to assert whether WPDB query preparation is skipped.
+     *
+     * @since [*next-version*]
+     */
+    public function testExecuteWpdbQueryNoArgs()
+    {
+        $subject = $this->createInstance();
+        $reflect = $this->reflect($subject);
+
+        $query = uniqid('query-');
+        $args = [
+        ];
+        $expected = rand(0, 10);
+
+        // Mock wpdb
+        $wpdb = $this->getMockBuilder('stdClass')
+                     ->setMethods(['prepare', 'query'])
+                     ->getMockForAbstractClass();
+        $wpdb->expects($this->never())
+             ->method('prepare');
+        $wpdb->expects($this->once())
+             ->method('query')
+             ->with($query)
              ->willReturn($expected);
 
         $subject->method('_getWpdb')->willReturn($wpdb);

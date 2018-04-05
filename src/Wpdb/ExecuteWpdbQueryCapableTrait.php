@@ -21,15 +21,17 @@ trait ExecuteWpdbQueryCapableTrait
      * @param string|Stringable $query     The query to execute.
      * @param array             $inputArgs An array of arguments to use for interpolating placeholders in the query.
      *
-     * @return array A list of associative arrays, each representing a single record.
+     * @return int|false The number of affected records, or false on failure.
      */
     protected function _executeWpdbQuery($query, array $inputArgs = [])
     {
         $wpdb = $this->_getWpdb();
         $queryStr = $this->_normalizeString($query);
-        $prepared = $wpdb->prepare($queryStr, $inputArgs);
+        $queryStr = (count($inputArgs) > 0)
+            ? $wpdb->prepare($queryStr, $inputArgs)
+            : $queryStr;
 
-        return $wpdb->query($prepared);
+        return $wpdb->query($queryStr);
     }
 
     /**
