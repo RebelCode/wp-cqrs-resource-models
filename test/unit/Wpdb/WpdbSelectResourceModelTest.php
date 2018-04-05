@@ -254,8 +254,8 @@ class WpdbSelectResourceModelTest extends TestCase
         $results = [uniqid('result-'), uniqid('result-'), uniqid('result-')];
         $wpdb->expects($this->once())
             ->method('query')
-            ->with($preparedQuery)
-            ->willReturn($results);
+            ->with($preparedQuery);
+        $wpdb->last_result = $results;
 
         $actual = $subject->select($condition);
 

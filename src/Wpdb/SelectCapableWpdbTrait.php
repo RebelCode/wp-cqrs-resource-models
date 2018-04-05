@@ -8,6 +8,7 @@ use Dhii\Storage\Resource\Sql\OrderInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use InvalidArgumentException;
 use OutOfRangeException;
+use stdClass;
 use Traversable;
 
 /**
@@ -52,7 +53,7 @@ trait SelectCapableWpdbTrait
             $valueHashMap
         );
 
-        return $this->_executeWpdbQuery($query, array_flip($valueHashMap));
+        return $this->_getWpdbQueryResults($query, array_flip($valueHashMap));
     }
 
     /**
@@ -141,7 +142,7 @@ trait SelectCapableWpdbTrait
      * @param string|Stringable $query     The query to execute.
      * @param array             $inputArgs An array of arguments to use for interpolating placeholders in the query.
      *
-     * @return array A list of associative arrays, each representing a single record.
+     * @return array|Traversable The resulting records.
      */
-    abstract protected function _executeWpdbQuery($query, array $inputArgs = []);
+    abstract protected function _getWpdbQueryResults($query, array $inputArgs = []);
 }

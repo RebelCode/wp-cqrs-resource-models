@@ -45,7 +45,7 @@ class SelectCapableWpdbTraitTest extends TestCase
                                     '_getSqlSelectFieldNames',
                                     '_getSqlSelectJoinConditions',
                                     '_getWpdbExpressionHashMap',
-                                    '_executeWpdbQuery',
+                                    '_getWpdbQueryResults',
                                 ]
                             )
                         );
@@ -196,7 +196,7 @@ class SelectCapableWpdbTraitTest extends TestCase
         ];
 
         $subject->expects($this->once())
-                ->method('_executeWpdbQuery')
+                ->method('_getWpdbQueryResults')
                 ->with($query, $hvm)
                 ->willReturn($expected);
 
