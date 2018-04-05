@@ -10,6 +10,13 @@ namespace RebelCode\Storage\Resource\WordPress\Wpdb;
 abstract class AbstractWpdbResourceModel
 {
     /**
+     * Provides functionality for executing queries and retrieving results using a WPDB instance.
+     *
+     * @since [*next-version*]
+     */
+    use GetWpdbQueryResultsCapableTrait;
+
+    /**
      * Provides functionality for executing queries with a WPDB instance.
      *
      * @since [*next-version*]
