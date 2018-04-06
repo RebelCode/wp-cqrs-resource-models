@@ -65,7 +65,7 @@ class WpdbDeleteResourceModelTest extends TestCase
                 [
                     $className,
                     $parentName,
-                    empty($interfaces) ? '' : 'implements ' . implode(', ', $interfaces),
+                    empty($interfaces) ? '' : 'implements '.implode(', ', $interfaces),
                 ]
             );
             eval($definition);
@@ -197,9 +197,9 @@ class WpdbDeleteResourceModelTest extends TestCase
         $wpdb = $this->createWpdb();
         $table = 'users';
         $fcMap = [
-            'id'   => 'id',
+            'id' => 'id',
             'name' => 'user_name',
-            'age'  => 'user_age',
+            'age' => 'user_age',
         ];
         $template = $this->createTemplate();
 

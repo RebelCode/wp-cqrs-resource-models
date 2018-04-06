@@ -49,7 +49,7 @@ class WpDeleteCapableTraitTest extends TestCase
 
         $mock->method('__')->willReturnArgument(0);
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($m, $c, $p) {
+            function ($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
             }
         );

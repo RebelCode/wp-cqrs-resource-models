@@ -6,7 +6,7 @@ use Dhii\Util\String\StringableInterface as Stringable;
 use InvalidArgumentException;
 
 /**
- * Common functionality for objects that can
+ * Common functionality for objects that can.
  *
  * @since [*next-version*]
  */

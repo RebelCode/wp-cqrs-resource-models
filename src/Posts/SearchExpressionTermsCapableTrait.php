@@ -28,10 +28,10 @@ trait SearchExpressionTermsCapableTrait
      * @param int|null            $count      The maximum number of terms to search for. Searching will stop once this
      *                                        number of terms are found.
      *
-     * @return TermInterface[] The list of matching terms.
-     *
-     * @throws InvalidArgumentException If the
+     * @throws InvalidArgumentException     If the
      * @throws InvocationExceptionInterface If a problem occurred while invoking the callback.
+     *
+     * @return TermInterface[] The list of matching terms.
      */
     protected function _searchExpressionTerms(ExpressionInterface $expression, callable $callback, $count = null)
     {

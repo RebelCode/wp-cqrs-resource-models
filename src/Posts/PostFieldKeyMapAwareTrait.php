@@ -46,7 +46,7 @@ trait PostFieldKeyMapAwareTrait
      * @param string[]|Stringable[]|stdClass|Traversable $postFieldKeyMap The post field-to-key map.
      *
      * @throws InvalidArgumentException If the argument is not an array or iterable.
-     * @throws OutOfRangeException If the argument contains an invalid key or invalid value.
+     * @throws OutOfRangeException      If the argument contains an invalid key or invalid value.
      */
     protected function _setPostFieldKeyMap($postFieldKeyMap)
     {
@@ -71,9 +71,9 @@ trait PostFieldKeyMapAwareTrait
      * @param string|Stringable $value The value.
      * @param string            $key   The key.
      *
-     * @return string|Stringable The value.
-     *
      * @throws OutOfRangeException If either the key or value are invalid.
+     *
+     * @return string|Stringable The value.
      */
     protected function _validatePostKeyFieldMapping($value, $key)
     {

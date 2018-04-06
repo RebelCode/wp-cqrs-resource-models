@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use Exception as RootException;
 
 /**
- * Common functionality for objects that are aware of a post meta data field key.`
+ * Common functionality for objects that are aware of a post meta data field key.`.
  *
  * @since [*next-version*]1
  */

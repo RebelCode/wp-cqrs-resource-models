@@ -66,7 +66,7 @@ class WpdbSelectResourceModelTest extends TestCase
                 [
                     $className,
                     $parentName,
-                    empty($interfaces) ? '' : 'implements ' . implode(', ', $interfaces),
+                    empty($interfaces) ? '' : 'implements '.implode(', ', $interfaces),
                 ]
             );
             eval($definition);
@@ -177,10 +177,10 @@ class WpdbSelectResourceModelTest extends TestCase
         $template = $this->createTemplate();
         $tables = [uniqid('table-'), uniqid('table-')];
         $fcMap = [
-            'id'   => 'id',
+            'id' => 'id',
             'name' => 'user_name',
-            'age'  => 'user_age',
-            'id2'  => 'id_2',
+            'age' => 'user_age',
+            'id2' => 'id_2',
         ];
         $joins = [
             uniqid('table-') => $this->createLogicalExpression(uniqid('type-'), []),
@@ -206,9 +206,9 @@ class WpdbSelectResourceModelTest extends TestCase
         $wpdb = $this->createWpdb();
         $table = 'users';
         $fcMap = [
-            'id'   => 'id',
+            'id' => 'id',
             'name' => 'user_name',
-            'age'  => 'user_age',
+            'age' => 'user_age',
         ];
         $template = $this->createTemplate();
         $joins = [];
@@ -230,7 +230,7 @@ class WpdbSelectResourceModelTest extends TestCase
                         $this->createEntityFieldTerm('users', 'age'),
                         $this->createLiteralTerm(30),
                     ]
-                )
+                ),
             ]
         );
 
@@ -239,10 +239,10 @@ class WpdbSelectResourceModelTest extends TestCase
                  ->with($this->contains($condition))
                  ->willReturn($where = '`users`.`user_age` > %1$d AND `users`.`user_age` < %2$d');
 
-        $expectedQuery = 'SELECT `id`, `user_name`, `user_age` FROM `users` WHERE ' . $where . ';';
+        $expectedQuery = 'SELECT `id`, `user_name`, `user_age` FROM `users` WHERE '.$where.';';
         $expectedArgs = [
             '%1$d' => 20,
-            '%2$d' => 30
+            '%2$d' => 30,
         ];
 
         $preparedQuery = uniqid('prepared-query-');

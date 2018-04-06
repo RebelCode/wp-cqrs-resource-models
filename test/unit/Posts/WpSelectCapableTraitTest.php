@@ -99,7 +99,7 @@ class WpSelectCapableTraitTest extends TestCase
 
         $expression = $this->createLogicalExpression('', []);
         $args = [
-            'post_type'   => 'post',
+            'post_type' => 'post',
             'post_author' => '16',
         ];
         $expected = [
@@ -117,7 +117,7 @@ class WpSelectCapableTraitTest extends TestCase
                 ->willReturnArgument(0);
         $subject->expects($this->atLeastOnce())
                 ->method('_createWpQuery')->willReturnCallback(
-                function($args) use ($expected) {
+                function ($args) use ($expected) {
                     $obj = new stdClass();
                     $obj->posts = $expected;
 

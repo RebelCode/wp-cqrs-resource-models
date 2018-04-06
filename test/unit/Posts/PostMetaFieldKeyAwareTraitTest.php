@@ -3,7 +3,7 @@
 namespace RebelCode\Storage\Resource\WordPress\Posts\FuncTest;
 
 use Dhii\Util\String\StringableInterface;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use stdClass;
 use Xpmock\TestCase;
@@ -39,7 +39,7 @@ class PostMetaFieldKeyAwareTraitTest extends TestCase
 
         $mock->method('__')->willReturnArgument(0);
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($msg = '', $code = 0, $prev = null) {
+            function ($msg = '', $code = 0, $prev = null) {
                 return new InvalidArgumentException($msg, $code, $prev);
             }
         );

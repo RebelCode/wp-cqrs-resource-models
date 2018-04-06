@@ -151,7 +151,7 @@ class SearchExpressionTermsCapableTraitTest extends TestCase
             ]
         );
         $expected = [$term2, $term3];
-        $callback = function() {
+        $callback = function () {
         };
         $count = rand(0, 4);
 
@@ -159,7 +159,7 @@ class SearchExpressionTermsCapableTraitTest extends TestCase
                 ->method('_mapIterable')
                 ->with($expression->getTerms(), $callback, null, $count, $this->anything())
                 ->willReturnCallback(
-                    function($iterable, $callback, $start, $count, &$results) use ($expected) {
+                    function ($iterable, $callback, $start, $count, &$results) use ($expected) {
                         $results = $expected;
                     }
                 );
@@ -190,7 +190,7 @@ class SearchExpressionTermsCapableTraitTest extends TestCase
                 $this->createTerm(),
             ]
         );
-        $callback = function() {
+        $callback = function () {
         };
         $count = uniqid('invalid-count-');
 
@@ -223,7 +223,7 @@ class SearchExpressionTermsCapableTraitTest extends TestCase
                 $this->createTerm(),
             ]
         );
-        $callback = function() {
+        $callback = function () {
         };
         $count = uniqid('invalid-count-');
 

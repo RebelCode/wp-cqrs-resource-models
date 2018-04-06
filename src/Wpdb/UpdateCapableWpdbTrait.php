@@ -9,10 +9,7 @@ use Dhii\Storage\Resource\Sql\OrderInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
 use InvalidArgumentException;
-use PDOStatement;
 use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Traversable;
 
 /**
@@ -79,7 +76,7 @@ trait UpdateCapableWpdbTrait
         }
 
         $newChangeSet = [];
-        $fcMap = $this->_getSqlUpdateFieldColumnMap();
+        $fcMap        = $this->_getSqlUpdateFieldColumnMap();
 
         foreach ($changeSet as $_field => $_value) {
             // If unknown field name, skip
@@ -87,7 +84,7 @@ trait UpdateCapableWpdbTrait
                 continue;
             }
             // Add to new change set, but keyed with column name
-            $_column = $fcMap[$_field];
+            $_column                = $fcMap[$_field];
             $newChangeSet[$_column] = $_value;
 
             // Get hash for value

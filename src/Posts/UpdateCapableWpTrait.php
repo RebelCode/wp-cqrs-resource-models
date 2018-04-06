@@ -7,9 +7,6 @@ use Dhii\Expression\TermInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
 use InvalidArgumentException;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Traversable;
 use WP_Error;
 
@@ -64,7 +61,7 @@ trait UpdateCapableWpTrait
             );
         }
 
-        $postData = $this->_normalizeWpPostDataArray($changeSet);
+        $postData    = $this->_normalizeWpPostDataArray($changeSet);
         $postIdField = $this->_getPostIdFieldName();
 
         foreach ($postIds as $_postId) {
@@ -93,9 +90,9 @@ trait UpdateCapableWpTrait
      *
      * @param LogicalExpressionInterface|null $expression The expression to extract from.
      *
-     * @return string[]|Stringable A list of post IDs.
-     *
      * @throws InvalidArgumentException If the expression is
+     *
+     * @return string[]|Stringable A list of post IDs.
      */
     abstract protected function _extractPostIdsFromExpression(LogicalExpressionInterface $expression);
 

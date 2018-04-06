@@ -25,7 +25,7 @@ trait InsertCapableWpTrait
      * @param array[]|ArrayAccess[]|stdClass[]|ContainerInterface[]|Traversable $posts A list of posts to insert.
      *
      * @throws ContainerExceptionInterface If an error occurred while reading from a container posts.
-     * @throws InvalidArgumentException If the argument is not an array, traversable or container.
+     * @throws InvalidArgumentException    If the argument is not an array, traversable or container.
      */
     protected function _insert($posts)
     {
@@ -41,9 +41,9 @@ trait InsertCapableWpTrait
      *
      * @param array|ArrayAccess|stdClass|ContainerInterface $postData The post data container.
      *
-     * @return array The prepared post data.
-     *
      * @throws ContainerExceptionInterface If an error occurred while reading from the container.
+     *
+     * @return array The prepared post data.
      */
     abstract protected function _normalizeWpPostDataArray($postData);
 

@@ -26,10 +26,10 @@ trait SelectCapableWpTrait
      */
     protected function _select(LogicalExpressionInterface $condition = null)
     {
-        $args = $this->_buildWpQueryArgs($condition);
-        $args = $this->_filterWpQueryArgs($args);
+        $args    = $this->_buildWpQueryArgs($condition);
+        $args    = $this->_filterWpQueryArgs($args);
         $wpQuery = $this->_createWpQuery($args);
-        $posts = $wpQuery->posts;
+        $posts   = $wpQuery->posts;
 
         return $this->_filterWpQueryPosts($posts);
     }

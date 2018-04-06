@@ -3,7 +3,6 @@
 namespace RebelCode\Storage\Resource\FuncTest\Pdo;
 
 use Dhii\Data\Container\Exception\NotFoundException;
-use PDO;
 use PHPUnit_Framework_MockObject_MockBuilder as MockBuilder;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use RebelCode\Storage\Resource\WordPress\Wpdb\WpdbInsertResourceModel as TestSubject;
@@ -66,7 +65,7 @@ class WpdbInsertResourceModelTest extends TestCase
                 [
                     $className,
                     $parentName,
-                    empty($interfaces) ? '' : 'implements ' . implode(', ', $interfaces),
+                    empty($interfaces) ? '' : 'implements '.implode(', ', $interfaces),
                 ]
             );
             eval($definition);
@@ -98,7 +97,7 @@ class WpdbInsertResourceModelTest extends TestCase
                      ->getMockForAbstractClass();
 
         $mock->method('get')->willReturnCallback(
-            function($k) use ($data, $mock) {
+            function ($k) use ($data, $mock) {
                 if (isset($data[$k])) {
                     return $data[$k];
                 }
@@ -107,7 +106,7 @@ class WpdbInsertResourceModelTest extends TestCase
         );
 
         $mock->method('has')->willReturnCallback(
-            function($k) use ($data) {
+            function ($k) use ($data) {
                 return isset($data[$k]);
             }
         );
@@ -131,7 +130,7 @@ class WpdbInsertResourceModelTest extends TestCase
                      ->getMockForAbstractClass();
 
         $mock->method('offsetGet')->willReturnCallback(
-            function($k) use ($data, $mock) {
+            function ($k) use ($data, $mock) {
                 return (isset($data[$k]))
                     ? $data[$k]
                     : null;
@@ -139,7 +138,7 @@ class WpdbInsertResourceModelTest extends TestCase
         );
 
         $mock->method('offsetExists')->willReturnCallback(
-            function($k) use ($data) {
+            function ($k) use ($data) {
                 return isset($data[$k]);
             }
         );
@@ -163,27 +162,27 @@ class WpdbInsertResourceModelTest extends TestCase
                      ->getMockForAbstractClass();
 
         $mock->method('rewind')->willReturnCallback(
-            function() use (&$data) {
+            function () use (&$data) {
                 return reset($data);
             }
         );
         $mock->method('current')->willReturnCallback(
-            function() use (&$data) {
+            function () use (&$data) {
                 return current($data);
             }
         );
         $mock->method('key')->willReturnCallback(
-            function() use (&$data) {
+            function () use (&$data) {
                 return key($data);
             }
         );
         $mock->method('next')->willReturnCallback(
-            function() use (&$data) {
+            function () use (&$data) {
                 return next($data);
             }
         );
         $mock->method('valid')->willReturnCallback(
-            function() use (&$data) {
+            function () use (&$data) {
                 return key($data) !== null;
             }
         );
@@ -223,17 +222,17 @@ class WpdbInsertResourceModelTest extends TestCase
         $wpdb = $this->createWpdb();
         $table = 'users';
         $fcMap = [
-            'id'   => 'id',
+            'id' => 'id',
             'name' => 'user_name',
-            'age'  => 'user_age',
+            'age' => 'user_age',
         ];
         $subject = new TestSubject($wpdb, $table, $fcMap);
 
         $records = [
             $record1 = [
-                'id'   => 2,
+                'id' => 2,
                 'name' => 'foo',
-                'age'  => 28,
+                'age' => 28,
             ],
         ];
 
