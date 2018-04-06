@@ -8,7 +8,6 @@ use Dhii\Storage\Resource\Sql\OrderInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use InvalidArgumentException;
 use OutOfRangeException;
-use stdClass;
 use Traversable;
 
 /**
@@ -37,7 +36,7 @@ trait SelectCapableWpdbTrait
         $limit = null,
         $offset = null
     ) {
-        $fields = $this->_getSqlSelectFieldNames();
+        $fields       = $this->_getSqlSelectFieldNames();
         $valueHashMap = ($condition !== null)
             ? $this->_getWpdbExpressionHashMap($condition, $fields)
             : [];

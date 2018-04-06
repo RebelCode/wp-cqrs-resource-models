@@ -33,7 +33,7 @@ trait DeleteCapableWpdbTrait
         $limit = null,
         $offset = null
     ) {
-        $fieldNames = $this->_getSqlDeleteFieldNames();
+        $fieldNames   = $this->_getSqlDeleteFieldNames();
         $valueHashMap = ($condition !== null)
             ? $this->_getWpdbExpressionHashMap($condition, $fieldNames)
             : [];

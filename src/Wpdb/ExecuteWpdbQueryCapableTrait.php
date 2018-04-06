@@ -25,7 +25,7 @@ trait ExecuteWpdbQueryCapableTrait
      */
     protected function _executeWpdbQuery($query, array $inputArgs = [])
     {
-        $wpdb = $this->_getWpdb();
+        $wpdb     = $this->_getWpdb();
         $queryStr = $this->_normalizeString($query);
         $queryStr = (count($inputArgs) > 0)
             ? $wpdb->prepare($queryStr, $inputArgs)

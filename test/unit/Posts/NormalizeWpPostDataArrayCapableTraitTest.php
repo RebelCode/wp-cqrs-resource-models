@@ -55,7 +55,7 @@ class NormalizeWpPostDataArrayCapableTraitTest extends TestCase
 
         $mock->method('__')->willReturnArgument(0);
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($m, $c, $p) {
+            function ($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
             }
         );
@@ -350,8 +350,8 @@ class NormalizeWpPostDataArrayCapableTraitTest extends TestCase
                 $field1 => $value1,
                 $field2 => $value2,
                 $field3 => $value3,
-                $meta1  => $value4,
-                $meta2  => $value5,
+                $meta1 => $value4,
+                $meta2 => $value5,
             ]
         );
 
@@ -366,9 +366,9 @@ class NormalizeWpPostDataArrayCapableTraitTest extends TestCase
         $subject->method('_getPostMetaFieldKey')->willReturn($metaField);
 
         $expected = [
-            $column1   => $value1,
-            $column2   => $value2,
-            $column3   => $value3,
+            $column1 => $value1,
+            $column2 => $value2,
+            $column3 => $value3,
             $metaField => [
                 $meta1 => $value4,
                 $meta2 => $value5,
@@ -416,8 +416,8 @@ class NormalizeWpPostDataArrayCapableTraitTest extends TestCase
             $field1 => $value1,
             $field2 => $value2,
             $field3 => $value3,
-            $meta1  => $value4,
-            $meta2  => $value5,
+            $meta1 => $value4,
+            $meta2 => $value5,
         ];
         $container = (object) $array;
 
@@ -432,9 +432,9 @@ class NormalizeWpPostDataArrayCapableTraitTest extends TestCase
         $subject->method('_getPostMetaFieldKey')->willReturn($metaField);
 
         $expected = [
-            $column1   => $value1,
-            $column2   => $value2,
-            $column3   => $value3,
+            $column1 => $value1,
+            $column2 => $value2,
+            $column3 => $value3,
             $metaField => [],
         ];
 
@@ -445,13 +445,13 @@ class NormalizeWpPostDataArrayCapableTraitTest extends TestCase
                 ->willReturnArgument(0);
 
         $subject->method('_containerHas')->willReturnCallback(
-            function($c, $k) {
+            function ($c, $k) {
                 return property_exists($c, $k);
             }
         );
 
         $subject->method('_containerGet')->willReturnCallback(
-            function($c, $k) {
+            function ($c, $k) {
                 return $c->{$k};
             }
         );

@@ -7,7 +7,6 @@ use Dhii\Storage\Resource\Sql\OrderInterface;
 use InvalidArgumentException;
 use RebelCode\Storage\Resource\WordPress\Wpdb\UpdateCapableWpdbTrait as TestSubject;
 use Xpmock\TestCase;
-use Exception as RootException;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 /**
@@ -56,12 +55,12 @@ class UpdateCapableWpdbTraitTest extends TestCase
                      ->getMockForTrait();
 
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($m, $c, $p) {
+            function ($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
             }
         );
         $mock->method('_normalizeString')->willReturnCallback(
-            function($s) {
+            function ($s) {
                 return strval($s);
             }
         );
@@ -213,9 +212,9 @@ class UpdateCapableWpdbTraitTest extends TestCase
             $condVal1 => $condHash1,
             $condVal2 => $condHash2,
             $condVal3 => $condHash3,
-            $val1     => $hash1,
-            $val2     => $hash2,
-            $val3     => $hash3,
+            $val1 => $hash1,
+            $val2 => $hash2,
+            $val3 => $hash3,
         ];
         $processedChangeSet = [
             $col1 => $val1,

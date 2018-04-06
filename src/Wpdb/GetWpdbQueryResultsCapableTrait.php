@@ -3,7 +3,6 @@
 namespace RebelCode\Storage\Resource\WordPress\Wpdb;
 
 use Dhii\Util\String\StringableInterface as Stringable;
-use stdClass;
 use Traversable;
 use wpdb;
 

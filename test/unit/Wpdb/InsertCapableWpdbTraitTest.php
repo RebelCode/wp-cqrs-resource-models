@@ -5,7 +5,6 @@ namespace RebelCode\Storage\Resource\WordPress\Wpdb\UnitTest;
 use Psr\Container\NotFoundExceptionInterface;
 use RebelCode\Storage\Resource\WordPress\Wpdb\InsertCapableWpdbTrait as TestSubject;
 use Xpmock\TestCase;
-use Exception as RootException;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 /**
@@ -54,7 +53,7 @@ class InsertCapableWpdbTraitTest extends TestCase
                      ->getMockForTrait();
 
         $mock->method('_containerGet')->willReturnCallback(
-            function($c, $k) {
+            function ($c, $k) {
                 if (!isset($c[$k])) {
                     throw $this->createNotFoundException();
                 }
@@ -63,12 +62,12 @@ class InsertCapableWpdbTraitTest extends TestCase
             }
         );
         $mock->method('_containerHas')->willReturnCallback(
-            function($c, $k) {
+            function ($c, $k) {
                 return isset($c[$k]);
             }
         );
         $mock->method('_normalizeString')->willReturnCallback(
-            function($s) {
+            function ($s) {
                 return strval($s);
             }
         );

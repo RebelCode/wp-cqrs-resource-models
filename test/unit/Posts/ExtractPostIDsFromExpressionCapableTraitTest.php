@@ -56,12 +56,12 @@ class ExtractPostIDsFromExpressionCapableTraitTest extends TestCase
         $mock->method('__')->will($this->returnArgument(0));
         $mock->method('_normalizeArray')->will($this->returnArgument(0));
         $mock->method('_normalizeInt')->willReturnCallback(
-            function($s) {
+            function ($s) {
                 return intval($s);
             }
         );
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($m, $c, $p) {
+            function ($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
             }
         );

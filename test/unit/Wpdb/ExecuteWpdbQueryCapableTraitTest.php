@@ -45,7 +45,7 @@ class ExecuteWpdbQueryCapableTraitTest extends TestCase
 
         $mock = $builder->getMockForTrait();
         $mock->method('_normalizeString')->willReturnCallback(
-            function($input) {
+            function ($input) {
                 return strval($input);
             }
         );

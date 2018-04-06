@@ -47,7 +47,7 @@ class GetWpdbExpressionHashMapCapableTraitTest extends TestCase
                      ->getMockForTrait();
 
         $mock->method('_normalizeString')->willReturnCallback(
-            function($s) {
+            function ($s) {
                 return strval($s);
             }
         );

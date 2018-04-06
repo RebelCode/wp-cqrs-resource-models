@@ -33,7 +33,8 @@
         "dhii/output-renderer-interface": "^0.3",
         "dhii/sql-interface": "^0.1",
         "dhii/factory-interface": "^0.1-alpha2",
-        "dhii/invocable-interface": "^0.1-alpha1"
+        "dhii/invocable-interface": "^0.1-alpha1",
+        "johnpbloch/wordpress-core": "^4.0"
     },
     "autoload": {
         "psr-4": {

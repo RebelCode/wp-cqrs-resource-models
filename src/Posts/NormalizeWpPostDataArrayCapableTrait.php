@@ -34,9 +34,9 @@ trait NormalizeWpPostDataArrayCapableTrait
      *
      * @param array|ArrayAccess|stdClass|ContainerInterface|TermInterface[]|Traversable $postData The post data.
      *
-     * @return array The prepared post data.
-     *
      * @throws ContainerExceptionInterface If an error occurred while reading from a container.
+     *
+     * @return array The prepared post data.
      */
     protected function _normalizeWpPostDataArray($postData)
     {
@@ -46,9 +46,9 @@ trait NormalizeWpPostDataArrayCapableTrait
         }
 
         $metaKey = $this->_getPostMetaFieldKey();
-        $fields = $this->_getPostFieldKeyMap();
-        $data = [
-            $metaKey => []
+        $fields  = $this->_getPostFieldKeyMap();
+        $data    = [
+            $metaKey => [],
         ];
 
         foreach ($fields as $_field => $_key) {
@@ -84,9 +84,9 @@ trait NormalizeWpPostDataArrayCapableTrait
     protected function _normalizeWpPostDataAndMeta($postData)
     {
         $metaKey = $this->_getPostMetaFieldKey();
-        $fields = $this->_getPostFieldKeyMap();
-        $data = [
-             $metaKey => []
+        $fields  = $this->_getPostFieldKeyMap();
+        $data    = [
+             $metaKey => [],
         ];
 
         foreach ($postData as $_field => $_value) {

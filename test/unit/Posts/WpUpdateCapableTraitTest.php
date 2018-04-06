@@ -51,7 +51,7 @@ class WpUpdateCapableTraitTest extends TestCase
 
         $mock->method('__')->willReturnArgument(0);
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($m, $c, $p) {
+            function ($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
             }
         );
@@ -127,7 +127,7 @@ class WpUpdateCapableTraitTest extends TestCase
         $subject->method('_getPostIdFieldName')->willReturn($postIdField);
 
         $expression = $this->createLogicalExpression(uniqid('type-'), [], false);
-        $postIds = [rand(1, 500), rand(1, 500), rand(1, 500),];
+        $postIds = [rand(1, 500), rand(1, 500), rand(1, 500)];
         $subject->expects($this->atLeastOnce())
                 ->method('_extractPostIdsFromExpression')
                 ->with($expression)

@@ -46,12 +46,12 @@ class PostFieldKeyMapAwareTraitTest extends TestCase
 
         $mock->method('__')->willReturnArgument(0);
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($msg = '', $code = 0, $prev = null) {
+            function ($msg = '', $code = 0, $prev = null) {
                 return new InvalidArgumentException($msg, $code, $prev);
             }
         );
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($msg = '', $code = 0, $prev = null) {
+            function ($msg = '', $code = 0, $prev = null) {
                 return new OutOfRangeException($msg, $code, $prev);
             }
         );
@@ -97,7 +97,7 @@ class PostFieldKeyMapAwareTraitTest extends TestCase
         ];
 
         $subject->expects($this->once())->method('_mapIterable')->willReturnCallback(
-            function($iterable, $callback, $start, $end, &$results) use ($expected) {
+            function ($iterable, $callback, $start, $end, &$results) use ($expected) {
                 $results = $expected;
             }
         );

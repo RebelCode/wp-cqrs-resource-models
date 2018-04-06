@@ -45,7 +45,7 @@ class GetWpdbValueHashStringCapableTraitTest extends TestCase
                      ->getMockForTrait();
 
         $mock->method('_normalizeString')->willReturnCallback(
-            function($s) {
+            function ($s) {
                 return strval($s);
             }
         );
@@ -120,7 +120,7 @@ class GetWpdbValueHashStringCapableTraitTest extends TestCase
         $value = rand(0, 50000);
         $position = rand(1, 10);
 
-        $expected = '%' . $position . '$d';
+        $expected = '%'.$position.'$d';
         $hash = $reflect->_getWpdbValueHashString($value, $position);
 
         $this->assertEquals($expected, $hash, 'Expected and retrieved hash strings do not match.');
@@ -140,7 +140,7 @@ class GetWpdbValueHashStringCapableTraitTest extends TestCase
         $value = rand(1, 500) / 1000;
         $position = rand(1, 10);
 
-        $expected = '%' . $position . '$f';
+        $expected = '%'.$position.'$f';
         $hash = $reflect->_getWpdbValueHashString($value, $position);
 
         $this->assertEquals($expected, $hash, 'Expected and retrieved hash strings do not match.');

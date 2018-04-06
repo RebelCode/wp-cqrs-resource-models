@@ -11,7 +11,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use stdClass;
 use Traversable;
-use \wpdb;
+use wpdb;
 
 /**
  * Common functionality for objects that can insert records into a database using WPDB.
@@ -88,9 +88,9 @@ trait InsertCapableWpdbTrait
      *                                                                                        hash-value pairs are
      *                                                                                        written.
      *
-     * @return array The pre-processed record data list, as an array of record data associative sub-arrays.
-     *
      * @throws ContainerExceptionInterface If an error occurred while reading from a record's container.
+     *
+     * @return array The pre-processed record data list, as an array of record data associative sub-arrays.
      */
     protected function _preProcessRecords($records, &$valueHashMap = [])
     {
@@ -117,9 +117,9 @@ trait InsertCapableWpdbTrait
      * @param array                                         $valueHashMap A value-to-hash map reference to which new
      *                                                                    value-hash pairs are written.
      *
-     * @return array The extracted record data as an associative array.
-     *
      * @throws ContainerExceptionInterface If an error occurred while reading from the record container.
+     *
+     * @return array The extracted record data as an associative array.
      */
     protected function _extractRecordData($record, array &$valueHashMap = [])
     {
@@ -134,7 +134,7 @@ trait InsertCapableWpdbTrait
             try {
                 $_value = $this->_containerGet($record, $_field);
                 // Calculate hash for value
-                $_valueStr = $this->_normalizeString($_value);
+                $_valueStr  = $this->_normalizeString($_value);
                 $_valueHash = $this->_getWpdbValueHashString($_value, count($valueHashMap) + 1);
                 // Add value-to-hash entry to map
                 $valueHashMap[$_valueStr] = $_valueHash;

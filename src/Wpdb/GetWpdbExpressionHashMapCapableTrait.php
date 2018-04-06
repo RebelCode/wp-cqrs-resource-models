@@ -72,7 +72,7 @@ trait GetWpdbExpressionHashMapCapableTrait
                 continue;
             }
 
-            $_value = $_term->getValue();
+            $_value    = $_term->getValue();
             $_valueStr = $this->_normalizeString($_value);
 
             // If in ignore list or already in the map, ignore

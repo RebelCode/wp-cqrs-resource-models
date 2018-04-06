@@ -6,7 +6,6 @@ use Dhii\Data\KeyAwareInterface;
 use Dhii\Data\ValueAwareInterface;
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Expression\Type\BooleanTypeInterface;
-use Dhii\Expression\Type\RelationalTypeInterface;
 use Dhii\Storage\Resource\Sql\EntityFieldInterface;
 use Dhii\Storage\Resource\Sql\Expression\SqlRelationalTypeInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
@@ -15,7 +14,7 @@ use InvalidArgumentException;
 use Traversable;
 
 /**
- * ExtractPostIdsFromExpressionCapableTrait
+ * ExtractPostIdsFromExpressionCapableTrait.
  *
  * The expression is expected to be of type OR or EQUAL_TO. OR expressions can have terms of either of these types
  * for nesting, while EQUAL_TO expressions are scanned for a KeyAwareInterface term and a ValueAwareInterface term.
@@ -98,10 +97,10 @@ trait ExtractPostIdsFromExpressionCapableTrait
      */
     protected function _extractPostIdsFromEqualsExpression(LogicalExpressionInterface $expression = null)
     {
-        $postIds = [];
+        $postIds       = [];
         $isPostIdField = false;
-        $pEntity = $this->_getPostEntityName();
-        $pIdField = $this->_getPostIdFieldName();
+        $pEntity       = $this->_getPostEntityName();
+        $pIdField      = $this->_getPostIdFieldName();
 
         foreach ($expression->getTerms() as $_child) {
             if ($_child instanceof EntityFieldInterface &&
@@ -114,7 +113,7 @@ trait ExtractPostIdsFromExpressionCapableTrait
             }
 
             if ($_child instanceof ValueAwareInterface) {
-                $_value = $_child->getValue();
+                $_value    = $_child->getValue();
                 $postIds[] = $this->_normalizeInt($_value);
 
                 continue;
@@ -138,9 +137,9 @@ trait ExtractPostIdsFromExpressionCapableTrait
     protected function _extractPostIdsFromBetweenExpression(LogicalExpressionInterface $expression)
     {
         $isPostIdField = false;
-        $pEntity = $this->_getPostEntityName();
-        $pIdField = $this->_getPostIdFieldName();
-        $bounds = [];
+        $pEntity       = $this->_getPostEntityName();
+        $pIdField      = $this->_getPostIdFieldName();
+        $bounds        = [];
 
         foreach ($expression->getTerms() as $_child) {
             if ($_child instanceof EntityFieldInterface &&
@@ -153,7 +152,7 @@ trait ExtractPostIdsFromExpressionCapableTrait
             }
 
             if ($_child instanceof ValueAwareInterface) {
-                $_value = $_child->getValue();
+                $_value   = $_child->getValue();
                 $bounds[] = $this->_normalizeInt($_value);
 
                 continue;
@@ -183,10 +182,10 @@ trait ExtractPostIdsFromExpressionCapableTrait
      */
     protected function _extractPostIdsFromInExpression(LogicalExpressionInterface $expression)
     {
-        $postIds = [];
+        $postIds       = [];
         $isPostIdField = false;
-        $pEntity = $this->_getPostEntityName();
-        $pIdField = $this->_getPostIdFieldName();
+        $pEntity       = $this->_getPostEntityName();
+        $pIdField      = $this->_getPostIdFieldName();
 
         foreach ($expression->getTerms() as $_child) {
             if ($_child instanceof EntityFieldInterface &&
@@ -199,7 +198,7 @@ trait ExtractPostIdsFromExpressionCapableTrait
             }
 
             if ($_child instanceof ValueAwareInterface) {
-                $_value = $_child->getValue();
+                $_value  = $_child->getValue();
                 $postIds = $this->_normalizeArray($_value);
 
                 continue;
