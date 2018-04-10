@@ -62,6 +62,7 @@
       <path value="$PROJECT_DIR$/vendor/dhii/factory-interface" />
       <path value="$PROJECT_DIR$/vendor/symfony/debug" />
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/johnpbloch/wordpress-core" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />
