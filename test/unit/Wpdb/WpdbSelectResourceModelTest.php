@@ -175,7 +175,10 @@ class WpdbSelectResourceModelTest extends TestCase
     {
         $wpdb = $this->createWpdb();
         $template = $this->createTemplate();
-        $tables = [uniqid('table-'), uniqid('table-')];
+        $tables = [
+            uniqid('table-') => uniqid('alias-'),
+            uniqid('table-') => uniqid('alias-'),
+        ];
         $fcMap = [
             'id' => 'id',
             'name' => 'user_name',
@@ -204,7 +207,9 @@ class WpdbSelectResourceModelTest extends TestCase
     public function testSelect()
     {
         $wpdb = $this->createWpdb();
-        $table = 'users';
+        $tables = [
+            'my_users' => 'users'
+        ];
         $fcMap = [
             'id' => 'id',
             'name' => 'user_name',
@@ -212,7 +217,7 @@ class WpdbSelectResourceModelTest extends TestCase
         ];
         $template = $this->createTemplate();
         $joins = [];
-        $subject = new TestSubject($wpdb, $template, [$table], $fcMap, $joins);
+        $subject = new TestSubject($wpdb, $template, $tables, $fcMap, $joins);
 
         $condition = $this->createLogicalExpression(
             'and',
@@ -239,7 +244,7 @@ class WpdbSelectResourceModelTest extends TestCase
                  ->with($this->contains($condition))
                  ->willReturn($where = '`users`.`user_age` > %1$d AND `users`.`user_age` < %2$d');
 
-        $expectedQuery = 'SELECT `id`, `user_name`, `user_age` FROM `users` WHERE '.$where.';';
+        $expectedQuery = 'SELECT `id`, `user_name`, `user_age` FROM `my_users` as `users` WHERE '.$where.';';
         $expectedArgs = [
             '%1$d' => 20,
             '%2$d' => 30,

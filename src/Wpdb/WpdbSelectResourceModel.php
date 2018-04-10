@@ -13,13 +13,17 @@ use Dhii\Expression\ExpressionInterface;
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Expression\TermInterface;
 use Dhii\I18n\StringTranslatingTrait;
+use Dhii\Iterator\CountIterableCapableTrait;
+use Dhii\Iterator\ResolveIteratorCapableTrait;
 use Dhii\Output\TemplateInterface;
 use Dhii\Storage\Resource\SelectCapableInterface;
 use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
 use Dhii\Util\Normalization\NormalizeIntCapableTrait;
+use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use RebelCode\Storage\Resource\Sql\BuildSelectSqlCapableTrait;
+use RebelCode\Storage\Resource\Sql\BuildSqlFromCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlJoinsCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlLimitCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlOffsetCapableTrait;
@@ -35,6 +39,8 @@ use RebelCode\Storage\Resource\Sql\SqlFieldColumnMapAwareTrait;
 use RebelCode\Storage\Resource\Sql\SqlFieldNamesAwareTrait;
 use RebelCode\Storage\Resource\Sql\SqlJoinConditionsAwareTrait;
 use RebelCode\Storage\Resource\Sql\SqlTableListAwareTrait;
+use stdClass;
+use Traversable;
 use wpdb;
 
 /**
@@ -65,6 +71,13 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
      * @since [*next-version*]
      */
     use BuildSelectSqlCapableTrait;
+
+    /*
+     * Provides SQL FROM querying building functionality.
+     *
+     * @since [*next-version*]
+     */
+    use BuildSqlFromCapableTrait;
 
     /*
      * Provides SQL JOIN building functionality.
@@ -207,6 +220,27 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
     use NormalizeArrayCapableTrait;
 
     /*
+     * Provides iterable normalization functionality.
+     *
+     * @since [*next-version*]
+     */
+    use NormalizeIterableCapableTrait;
+
+    /*
+     * Provides iterable counting functionality.
+     *
+     * @since [*next-version*]
+     */
+    use CountIterableCapableTrait;
+
+    /*
+     * Provides iterator resolution functionality.
+     *
+     * @since [*next-version*]
+     */
+    use ResolveIteratorCapableTrait;
+
+    /*
      * Provides functionality for reading from any type of container object.
      *
      * @since [*next-version*]
@@ -276,7 +310,8 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
      *
      * @param wpdb                         $wpdb               The WPDB instance to use to prepare and execute queries.
      * @param TemplateInterface            $expressionTemplate The template for rendering SQL expressions.
-     * @param string[]|Stringable[]        $tables             The tables from which records will be selected.
+     * @param array|stdClass|Traversable   $tables             The tables names (values) mapping to their aliases (keys)
+     *                                                         or null for no aliasing.
      * @param string[]|Stringable[]        $fieldColumnMap     A map of field names to table column names.
      * @param LogicalExpressionInterface[] $joins              A list of JOIN expressions to use in SELECT queries.
      */

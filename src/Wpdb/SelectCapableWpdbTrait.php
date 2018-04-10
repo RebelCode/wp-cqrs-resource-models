@@ -8,6 +8,7 @@ use Dhii\Storage\Resource\Sql\OrderInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use InvalidArgumentException;
 use OutOfRangeException;
+use stdClass;
 use Traversable;
 
 /**
@@ -90,7 +91,7 @@ trait SelectCapableWpdbTrait
      *
      * @since [*next-version*]
      *
-     * @return string[]|Stringable[] A list of SQL database table names.
+     * @return array|stdClass|Traversable The SQL tables names (keys) mapping to their aliases (values).
      */
     abstract protected function _getSqlSelectTables();
 

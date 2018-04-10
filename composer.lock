@@ -1023,12 +1023,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/sql-cqrs-resource-models-abstract.git",
-                "reference": "a6d986d5272468e29276c7b0e1e481f86a6afc4c"
+                "reference": "7762b0b54f0bb99faafcbc3cc6eebd63ee4860d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/sql-cqrs-resource-models-abstract/zipball/a6d986d5272468e29276c7b0e1e481f86a6afc4c",
-                "reference": "a6d986d5272468e29276c7b0e1e481f86a6afc4c",
+                "url": "https://api.github.com/repos/RebelCode/sql-cqrs-resource-models-abstract/zipball/7762b0b54f0bb99faafcbc3cc6eebd63ee4860d9",
+                "reference": "7762b0b54f0bb99faafcbc3cc6eebd63ee4860d9",
                 "shasum": ""
             },
             "require": {
@@ -1068,7 +1068,7 @@
                 }
             ],
             "description": "Abstract functionality for SQL CQRS resource models.",
-            "time": "2018-04-10T11:28:40+00:00"
+            "time": "2018-04-10T12:43:27+00:00"
         }
     ],
     "packages-dev": [
