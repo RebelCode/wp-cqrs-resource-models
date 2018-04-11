@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "dhii/container-helper-base",
-            "version": "v0.1-alpha6",
+            "version": "v0.1-alpha7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/container-helper-base.git",
-                "reference": "284e6f999446be4b8baacf476495a39162531dc4"
+                "reference": "622671534124d95c1478a744e4d903b4d071f674"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/container-helper-base/zipball/284e6f999446be4b8baacf476495a39162531dc4",
-                "reference": "284e6f999446be4b8baacf476495a39162531dc4",
+                "url": "https://api.github.com/repos/Dhii/container-helper-base/zipball/622671534124d95c1478a744e4d903b4d071f674",
+                "reference": "622671534124d95c1478a744e4d903b4d071f674",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 }
             ],
             "description": "Helper functionality for working with container.",
-            "time": "2018-03-30T08:49:44+00:00"
+            "time": "2018-04-10T15:03:55+00:00"
         },
         {
             "name": "dhii/cqrs-resource-model-interface",
@@ -1023,12 +1023,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/sql-cqrs-resource-models-abstract.git",
-                "reference": "7762b0b54f0bb99faafcbc3cc6eebd63ee4860d9"
+                "reference": "509a9ac4a7b8812ea3c4477246fa55bf44c6b17b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/sql-cqrs-resource-models-abstract/zipball/7762b0b54f0bb99faafcbc3cc6eebd63ee4860d9",
-                "reference": "7762b0b54f0bb99faafcbc3cc6eebd63ee4860d9",
+                "url": "https://api.github.com/repos/RebelCode/sql-cqrs-resource-models-abstract/zipball/509a9ac4a7b8812ea3c4477246fa55bf44c6b17b",
+                "reference": "509a9ac4a7b8812ea3c4477246fa55bf44c6b17b",
                 "shasum": ""
             },
             "require": {
@@ -1068,7 +1068,7 @@
                 }
             ],
             "description": "Abstract functionality for SQL CQRS resource models.",
-            "time": "2018-04-10T12:43:27+00:00"
+            "time": "2018-04-11T11:11:49+00:00"
         }
     ],
     "packages-dev": [

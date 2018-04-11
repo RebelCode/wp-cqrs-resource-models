@@ -244,7 +244,9 @@ class WpdbSelectResourceModelTest extends TestCase
                  ->with($this->contains($condition))
                  ->willReturn($where = '`users`.`user_age` > %1$d AND `users`.`user_age` < %2$d');
 
-        $expectedQuery = 'SELECT `id`, `user_name`, `user_age` FROM `my_users` as `users` WHERE '.$where.';';
+        $expectedQuery =
+            "SELECT `id` AS `id`, `user_name` AS `name`, `user_age` AS `age` FROM `users` AS `my_users` WHERE $where;";
+
         $expectedArgs = [
             '%1$d' => 20,
             '%2$d' => 30,

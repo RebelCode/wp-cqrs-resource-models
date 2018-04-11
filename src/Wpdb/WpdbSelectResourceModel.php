@@ -23,6 +23,7 @@ use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use RebelCode\Storage\Resource\Sql\BuildSelectSqlCapableTrait;
+use RebelCode\Storage\Resource\Sql\BuildSqlColumnListCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlFromCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlJoinsCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlLimitCapableTrait;
@@ -33,7 +34,6 @@ use RebelCode\Storage\Resource\Sql\EscapeSqlReferenceCapableTrait;
 use RebelCode\Storage\Resource\Sql\EscapeSqlReferenceListCapableTrait;
 use RebelCode\Storage\Resource\Sql\GetSqlColumnNameCapableContainerTrait;
 use RebelCode\Storage\Resource\Sql\RenderSqlExpressionCapableTrait;
-use RebelCode\Storage\Resource\Sql\SqlColumnNamesAwareTrait;
 use RebelCode\Storage\Resource\Sql\SqlExpressionTemplateAwareTrait;
 use RebelCode\Storage\Resource\Sql\SqlFieldColumnMapAwareTrait;
 use RebelCode\Storage\Resource\Sql\SqlFieldNamesAwareTrait;
@@ -71,6 +71,13 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
      * @since [*next-version*]
      */
     use BuildSelectSqlCapableTrait;
+
+    /*
+     * Provides SQL column list building functionality.
+     *
+     * @since [*next-version*]
+     */
+    use BuildSqlColumnListCapableTrait;
 
     /*
      * Provides SQL FROM querying building functionality.
@@ -176,13 +183,6 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
      * @since [*next-version*]
      */
     use SqlFieldNamesAwareTrait;
-
-    /*
-     * Provides SQL column name list storage functionality.
-     *
-     * @since [*next-version*]
-     */
-    use SqlColumnNamesAwareTrait;
 
     /*
      * Provides SQL join condition list storage functionality.
@@ -370,7 +370,7 @@ class WpdbSelectResourceModel extends AbstractWpdbResourceModel implements Selec
      */
     protected function _getSqlSelectColumns()
     {
-        return $this->_getSqlColumnNames();
+        return $this->_getSqlFieldColumnMap();
     }
 
     /**
