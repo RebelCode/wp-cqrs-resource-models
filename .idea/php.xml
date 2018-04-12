@@ -63,6 +63,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/debug" />
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/vendor/johnpbloch/wordpress-core" />
+      <path value="$PROJECT_DIR$/vendor/dhii/callback-abstract" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />

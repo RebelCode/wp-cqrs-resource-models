@@ -4,8 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "94d17e96818d58bee4cd26b89aaf3a7b",
+    "content-hash": "94d12f69d5613354830f68ed501c33bf",
     "packages": [
+        {
+            "name": "dhii/callback-abstract",
+            "version": "v0.1-alpha5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/callback-abstract.git",
+                "reference": "43ed4e99fc6ccdaf46a25d06da482a2fba8d9b19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/callback-abstract/zipball/43ed4e99fc6ccdaf46a25d06da482a2fba8d9b19",
+                "reference": "43ed4e99fc6ccdaf46a25d06da482a2fba8d9b19",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/invocable-interface": "^0.1",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "dhii/stringable-interface": "^0.1",
+                "dhii/validation-interface": "0.2-alpha1|0.2-alpha2",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "suggest": {
+                "dhii/args-list-validation": "For args list validation logic",
+                "dhii/normalization-helper-base": "To normalize lists and other types",
+                "dhii/validation-base": "For validation exceptions and their factories"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Invocation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Abstract functionality for working with callbacks.",
+            "time": "2018-04-04T14:57:27+00:00"
+        },
         {
             "name": "dhii/container-helper-base",
             "version": "v0.1-alpha7",
