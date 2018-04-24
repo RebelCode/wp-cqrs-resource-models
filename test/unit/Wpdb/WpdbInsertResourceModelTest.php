@@ -33,7 +33,7 @@ class WpdbInsertResourceModelTest extends TestCase
     public function mockClassAndInterfaces($className, $interfaceNames = [])
     {
         $paddingClassName = uniqid($className);
-        $definition = vsprintf(
+        $definition       = vsprintf(
             'abstract class %1$s extends %2$s implements %3$s {}',
             [
                 $paddingClassName,
@@ -65,15 +65,15 @@ class WpdbInsertResourceModelTest extends TestCase
                 [
                     $className,
                     $parentName,
-                    empty($interfaces) ? '' : 'implements '.implode(', ', $interfaces),
+                    empty($interfaces) ? '' : 'implements ' . implode(', ', $interfaces),
                 ]
             );
             eval($definition);
         }
 
         $mock = $this->getMockBuilder($className)
-                    ->setMethods(['prepare', 'query'])
-                    ->getMockForAbstractClass();
+                     ->setMethods(['prepare', 'query'])
+                     ->getMockForAbstractClass();
 
         // Init property
         $mock->insert_id = null;
@@ -197,8 +197,8 @@ class WpdbInsertResourceModelTest extends TestCase
      */
     public function testCanBeCreated()
     {
-        $table = uniqid('table-');
-        $fcMap = [
+        $table   = uniqid('table-');
+        $fcMap   = [
             uniqid('field-') => uniqid('column-'),
             uniqid('field-') => uniqid('column-'),
             uniqid('field-') => uniqid('column-'),
@@ -219,34 +219,29 @@ class WpdbInsertResourceModelTest extends TestCase
      */
     public function testInsert()
     {
-        $wpdb = $this->createWpdb();
-        $table = 'users';
-        $fcMap = [
-            'id' => 'id',
+        $wpdb    = $this->createWpdb();
+        $table   = 'users';
+        $fcMap   = [
+            'id'   => 'id',
             'name' => 'user_name',
-            'age' => 'user_age',
+            'age'  => 'user_age',
         ];
         $subject = new TestSubject($wpdb, $table, $fcMap);
 
         $records = [
             $record1 = [
-                'id' => 2,
+                'id'   => 2,
                 'name' => 'foo',
-                'age' => 28,
+                'age'  => 28,
             ],
         ];
 
-        $expectedQuery = 'INSERT INTO `users` (`id`, `user_name`, `user_age`) VALUES (%1$d, %2$s, %3$d);';
-        $expectedArgs = [
-            '%1$d' => 2,
-            '%2$s' => 'foo',
-            '%3$d' => 28,
-        ];
+        $queryRgx = '#INSERT INTO `users` \(`id`, `user_name`, `user_age`\) VALUES \([:0-9a-z]+, [:0-9a-z]+, [:0-9a-z]+\);#';
 
         $preparedQuery = uniqid('prepared-query-');
         $wpdb->expects($this->once())
              ->method('prepare')
-             ->with($expectedQuery, $expectedArgs)
+             ->with($this->matchesRegularExpression($queryRgx), $this->isType('array'))
              ->willReturn($preparedQuery);
 
         $wpdb->expects($this->once())

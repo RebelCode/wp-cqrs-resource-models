@@ -76,7 +76,7 @@ trait GetWpdbExpressionHashMapCapableTrait
             $_valueStr = $this->_normalizeString($_value);
 
             // If in ignore list or already in the map, ignore
-            if (in_array($_valueStr, $ignore) || isset($map[$_valueStr])) {
+            if (in_array($_valueStr, $ignore)) {
                 continue;
             }
 

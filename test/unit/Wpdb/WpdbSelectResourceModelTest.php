@@ -242,20 +242,15 @@ class WpdbSelectResourceModelTest extends TestCase
         $template->expects($this->atLeastOnce())
                  ->method('render')
                  ->with($this->contains($condition))
-                 ->willReturn($where = '`users`.`user_age` > %1$d AND `users`.`user_age` < %2$d');
+                 ->willReturn($where = '`users`.`user_age` > %s AND `users`.`user_age` < %s');
 
         $expectedQuery =
             "SELECT `id` AS `id`, `user_name` AS `name`, `user_age` AS `age` FROM `users` AS `my_users` WHERE $where;";
 
-        $expectedArgs = [
-            '%1$d' => 20,
-            '%2$d' => 30,
-        ];
-
         $preparedQuery = uniqid('prepared-query-');
         $wpdb->expects($this->once())
             ->method('prepare')
-            ->with($expectedQuery, $expectedArgs)
+            ->with($expectedQuery, $this->isType('array'))
             ->willReturn($preparedQuery);
 
         $results = [uniqid('result-'), uniqid('result-'), uniqid('result-')];

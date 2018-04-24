@@ -24,25 +24,7 @@ trait GetWpdbValueHashStringCapableTrait
      */
     protected function _getWpdbValueHashString($value, $position)
     {
-        $type = gettype($value);
-
-        switch ($type) {
-            case 'integer':
-                $format = 'd';
-                break;
-
-            case 'double':
-                $format = 'f';
-                break;
-
-            default:
-                // this will throw if not a valid string or stringable value
-                $this->_normalizeString($value);
-                $format = 's';
-                break;
-        }
-
-        return '%' . $position . '$' . $format;
+        return sprintf(':%d:%s',  $position, hash('crc32b', $value));
     }
 
     /**

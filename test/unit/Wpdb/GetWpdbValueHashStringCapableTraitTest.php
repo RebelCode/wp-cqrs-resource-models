@@ -92,7 +92,7 @@ class GetWpdbValueHashStringCapableTraitTest extends TestCase
      *
      * @since [*next-version*]
      */
-    public function testGetWpdbValueHashStringValueString()
+    public function testGetWpdbValueHashString()
     {
         $subject = $this->createInstance();
         $reflect = $this->reflect($subject);
@@ -100,73 +100,9 @@ class GetWpdbValueHashStringCapableTraitTest extends TestCase
         $value = uniqid('value-');
         $position = 3;
 
-        $expected = '%3$s';
+        $expected = ':3:' . hash('crc32b', $value);
         $hash = $reflect->_getWpdbValueHashString($value, $position);
 
         $this->assertEquals($expected, $hash, 'Expected and retrieved hash strings do not match.');
-    }
-
-    /**
-     * Tests the WPDB value hash string  method with a integer value to assert whether the retrieved hash string
-     * contains the correct type indicator and position.
-     *
-     * @since [*next-version*]
-     */
-    public function testGetWpdbValueHashStringValueInt()
-    {
-        $subject = $this->createInstance();
-        $reflect = $this->reflect($subject);
-
-        $value = rand(0, 50000);
-        $position = rand(1, 10);
-
-        $expected = '%'.$position.'$d';
-        $hash = $reflect->_getWpdbValueHashString($value, $position);
-
-        $this->assertEquals($expected, $hash, 'Expected and retrieved hash strings do not match.');
-    }
-
-    /**
-     * Tests the WPDB value hash string  method with a float value to assert whether the retrieved hash string
-     * contains the correct type indicator and position.
-     *
-     * @since [*next-version*]
-     */
-    public function testGetWpdbValueHashStringValueFloat()
-    {
-        $subject = $this->createInstance();
-        $reflect = $this->reflect($subject);
-
-        $value = rand(1, 500) / 1000;
-        $position = rand(1, 10);
-
-        $expected = '%'.$position.'$f';
-        $hash = $reflect->_getWpdbValueHashString($value, $position);
-
-        $this->assertEquals($expected, $hash, 'Expected and retrieved hash strings do not match.');
-    }
-
-    /**
-     * Tests the WPDB value hash string  method with an invalid value to assert whether an exception is thrown when
-     * the value is attempted to normalized to string.
-     *
-     * @since [*next-version*]
-     */
-    public function testGetWpdbValueHashStringValueMisc()
-    {
-        $subject = $this->createInstance();
-        $reflect = $this->reflect($subject);
-
-        $value = new stdClass();
-        $position = rand(1, 10);
-
-        $subject->expects($this->atLeastOnce())
-                ->method('_normalizeString')
-                ->with($value)
-                ->willThrowException(new InvalidArgumentException());
-
-        $this->setExpectedException('InvalidArgumentException');
-
-        $reflect->_getWpdbValueHashString($value, $position);
     }
 }
