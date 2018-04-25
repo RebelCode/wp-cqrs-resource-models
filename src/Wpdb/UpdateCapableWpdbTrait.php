@@ -38,13 +38,14 @@ trait UpdateCapableWpdbTrait
         $ordering = null,
         $limit = null
     ) {
-        $fields = array_keys($this->_getSqlUpdateFieldColumnMap());
-        // Hash map for the condition
-        $hashValueMap = ($condition !== null)
-            ? $this->_getWpdbExpressionHashMap($condition, $fields)
-            : [];
         // Fields to columns in change set, and hashes for values in change set
         $changeSet = $this->_preProcessChangeSet($changeSet, $hashValueMap);
+
+        // Hash map for the condition
+        if ($condition !== null) {
+            $fields = array_keys($this->_getSqlUpdateFieldColumnMap());
+            $this->_generateWpdbExpressionHashMap($hashValueMap, $condition, $fields);
+        }
 
         $values = array_values($hashValueMap);
         $tokens = array_combine($values, array_fill(0, count($values), '%s'));
@@ -165,12 +166,11 @@ trait UpdateCapableWpdbTrait
      *
      * @since [*next-version*]
      *
+     * @param array                 $map       The map to populate with generating hashes.
      * @param ExpressionInterface   $condition The condition instance.
      * @param string[]|Stringable[] $ignore    A list of term names to ignore, typically column names.
-     *
-     * @return array A map of value names to their respective hashes.
      */
-    abstract protected function _getWpdbExpressionHashMap(ExpressionInterface $condition, array $ignore = []);
+    abstract protected function _generateWpdbExpressionHashMap(&$map, ExpressionInterface $condition, array $ignore);
 
     /**
      * Executes a query using wpdb.

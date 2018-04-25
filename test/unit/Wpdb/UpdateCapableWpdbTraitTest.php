@@ -196,7 +196,6 @@ class UpdateCapableWpdbTraitTest extends TestCase
             $condHash2 = uniqid('hash-') => $condVal2 = uniqid('value-'),
             $condHash3 = uniqid('hash-') => $condVal3 = uniqid('value-'),
         ];
-        $subject->method('_getWpdbExpressionHashMap')->with($condition, $fields)->willReturn($cHashMap);
 
         // Hashes for the change set
         $subject->method('_getWpdbValueHashString')->willReturnOnConsecutiveCalls(
@@ -205,22 +204,35 @@ class UpdateCapableWpdbTraitTest extends TestCase
             $hash3 = uniqid('hash-')
         );
 
+        // Initial value hash map, before processing the condition
+        $hashValueMap = [
+            $hash1 => $val1,
+            $hash2 => $val2,
+            $hash3 => $val3,
+        ];
+        $subject->method('_generateWpdbExpressionHashMap')
+                ->with($hashValueMap, $condition, $fields)
+                // Simulate generate by adding the condition hash map to the arg reference
+                ->willReturnCallback(function (&$argMap) use ($cHashMap) {
+                    $argMap = $argMap + $cHashMap;
+                });
+
         // Tokens and values expected to be received by the query builder and WPDB respectively
         $tokens = [
-            $condVal1 => '%s',
-            $condVal2 => '%s',
-            $condVal3 => '%s',
             $val1 => '%s',
             $val2 => '%s',
             $val3 => '%s',
+            $condVal1 => '%s',
+            $condVal2 => '%s',
+            $condVal3 => '%s',
         ];
         $values = [
-            $condVal1,
-            $condVal2,
-            $condVal3,
             $val1,
             $val2,
             $val3,
+            $condVal1,
+            $condVal2,
+            $condVal3,
         ];
         $processedChangeSet = [
             $col1 => $val1,
