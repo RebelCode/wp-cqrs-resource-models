@@ -82,8 +82,8 @@ class ExecuteWpdbQueryCapableTraitTest extends TestCase
 
         $query = uniqid('query-');
         $args = [
-            uniqid('arg-') => uniqid('hash-'),
-            uniqid('arg-') => uniqid('hash-'),
+            uniqid('value-'),
+            uniqid('value-'),
         ];
         $prepared = uniqid('prepared-');
         $expected = rand(0, 10);
@@ -94,7 +94,7 @@ class ExecuteWpdbQueryCapableTraitTest extends TestCase
                      ->getMockForAbstractClass();
         $wpdb->expects($this->atLeastOnce())
              ->method('prepare')
-             ->with($query, array_keys($args))
+             ->with($query, $args)
              ->willReturn($prepared);
         $wpdb->expects($this->once())
              ->method('query')

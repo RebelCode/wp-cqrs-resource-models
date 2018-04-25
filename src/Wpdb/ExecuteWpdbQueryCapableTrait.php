@@ -29,7 +29,7 @@ trait ExecuteWpdbQueryCapableTrait
         $queryStr = $this->_normalizeString($query);
 
         if (count($inputArgs) > 0) {
-            $queryStr = $wpdb->prepare($queryStr, array_keys($inputArgs));
+            $queryStr = $wpdb->prepare($queryStr, $inputArgs);
         }
 
         return $wpdb->query($queryStr);
