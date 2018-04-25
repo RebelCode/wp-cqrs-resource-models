@@ -34,9 +34,12 @@ trait DeleteCapableWpdbTrait
         $offset = null
     ) {
         $fieldNames   = $this->_getSqlDeleteFieldNames();
-        $valueHashMap = ($condition !== null)
+        $hashValueMap = ($condition !== null)
             ? $this->_getWpdbExpressionHashMap($condition, $fieldNames)
             : [];
+
+        $values = array_values($hashValueMap);
+        $tokens = array_combine($values, array_fill(0, count($values), '%s'));
 
         $query = $this->_buildDeleteSql(
             $this->_getSqlDeleteTable(),
@@ -44,10 +47,10 @@ trait DeleteCapableWpdbTrait
             $ordering,
             $limit,
             $offset,
-            $valueHashMap
+            $tokens
         );
 
-        $this->_executeWpdbQuery($query, array_flip($valueHashMap));
+        $this->_executeWpdbQuery($query, $values);
     }
 
     /**

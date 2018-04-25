@@ -40,11 +40,14 @@ trait UpdateCapableWpdbTrait
     ) {
         $fields = array_keys($this->_getSqlUpdateFieldColumnMap());
         // Hash map for the condition
-        $valueHashMap = ($condition !== null)
+        $hashValueMap = ($condition !== null)
             ? $this->_getWpdbExpressionHashMap($condition, $fields)
             : [];
         // Fields to columns in change set, and hashes for values in change set
-        $changeSet = $this->_preProcessChangeSet($changeSet, $valueHashMap);
+        $changeSet = $this->_preProcessChangeSet($changeSet, $hashValueMap);
+
+        $values = array_values($hashValueMap);
+        $tokens = array_combine($values, array_fill(0, count($values), '%s'));
 
         $query = $this->_buildUpdateSql(
             $this->_getSqlUpdateTable(),
@@ -52,10 +55,10 @@ trait UpdateCapableWpdbTrait
             $condition,
             $ordering,
             $limit,
-            $valueHashMap
+            $tokens
         );
 
-        $this->_executeWpdbQuery($query, array_flip($valueHashMap));
+        $this->_executeWpdbQuery($query, $values);
     }
 
     /**
@@ -63,16 +66,16 @@ trait UpdateCapableWpdbTrait
      *
      * @since [*next-version*]
      *
-     * @param array|TermInterface[]|Traversable $changeSet    The change set, mapping field names to their new values or
-     *                                                        value expressions.
-     * @param array                             $valueHashMap The value hash map to populate with new hashes.
+     * @param array|TermInterface[]|Traversable $changeSet The change set, mapping field names to their new values or
+     *                                                     value expressions.
+     * @param array                             $hashMap   The hash-to-value map to populate with new hashes.
      *
      * @return array The processed change set.
      */
-    protected function _preProcessChangeSet($changeSet, &$valueHashMap = [])
+    protected function _preProcessChangeSet($changeSet, &$hashMap = [])
     {
-        if ($valueHashMap === null) {
-            $valueHashMap = [];
+        if ($hashMap === null) {
+            $hashMap = [];
         }
 
         $newChangeSet = [];
@@ -88,12 +91,12 @@ trait UpdateCapableWpdbTrait
             $newChangeSet[$_column] = $_value;
 
             // Get hash for value
-            $_hash = ($_value instanceof TermInterface)
+            $_valueStr  = $this->_normalizeString($_value);
+            $_valueHash = ($_value instanceof TermInterface)
                 ? $this->_getWpdbExpressionHashMap($_value)
-                : $this->_getWpdbValueHashString($_value, count($valueHashMap) + 1);
-            $_valueStr = $this->_normalizeString($_value);
+                : $this->_getWpdbValueHashString($_valueStr, count($hashMap) + 1);
             // Add to value hash map
-            $valueHashMap[$_valueStr] = $_hash;
+            $hashMap[$_valueHash] = $_value;
         }
 
         return $newChangeSet;

@@ -155,6 +155,9 @@ class GetWpdbExpressionHashMapCapableTraitTest extends TestCase
         $literal3 = uniqid('literal-');
         $ignored1 = uniqid('ignored-');
         $ignored2 = uniqid('ignored-');
+        $hash1 = uniqid('hash-');
+        $hash2 = uniqid('hash-');
+        $hash3 = uniqid('hash-');
 
         $expression = $this->createExpression(
             uniqid('type-'),
@@ -177,16 +180,15 @@ class GetWpdbExpressionHashMapCapableTraitTest extends TestCase
             ]
         );
 
-        $hash = uniqid('hash-');
         $subject->expects($this->atLeast(3))
                 ->method('_getWpdbValueHashString')
                 ->withConsecutive([$literal1, 1], [$literal3, 2], [$literal2, 3])
-                ->willReturn($hash);
+                ->willReturnOnConsecutiveCalls($hash1, $hash3, $hash2);
 
         $expected = [
-            $literal1 => $hash,
-            $literal3 => $hash,
-            $literal2 => $hash,
+            $hash1 => $literal1,
+            $hash3 => $literal3,
+            $hash2 => $literal2,
         ];
 
         $actual = $reflect->_getWpdbExpressionHashMap($expression, [$ignored1, $ignored2]);

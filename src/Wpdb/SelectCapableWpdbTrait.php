@@ -38,9 +38,12 @@ trait SelectCapableWpdbTrait
         $offset = null
     ) {
         $fields = $this->_getSqlSelectFieldNames();
-        $valueHashMap = ($condition !== null)
+        $hashValueMap = ($condition !== null)
             ? $this->_getWpdbExpressionHashMap($condition, $fields)
             : [];
+
+        $values = array_values($hashValueMap);
+        $tokens = array_combine($values, array_fill(0, count($values), '%s'));
 
         $query = $this->_buildSelectSql(
             $this->_getSqlSelectColumns(),
@@ -50,10 +53,10 @@ trait SelectCapableWpdbTrait
             $ordering,
             $limit,
             $offset,
-            $valueHashMap
+            $tokens
         );
 
-        return $this->_getWpdbQueryResults($query, array_flip($valueHashMap));
+        return $this->_getWpdbQueryResults($query, $values);
     }
 
     /**

@@ -155,12 +155,19 @@ class DeleteCapableWpdbTraitTest extends TestCase
         $subject->method('_getSqlDeleteTable')->willReturn($table);
         $subject->method('_getSqlDeleteFieldNames')->willReturn($fields);
 
-        $hashMap = [
-            uniqid('value-') => uniqid('hash-'),
-            uniqid('value-') => uniqid('hash-'),
-            uniqid('value-') => uniqid('hash-'),
+        $hashValueMap = [
+            uniqid('hash-') => $v1 = uniqid('value-'),
+            uniqid('hash-') => $v2 = uniqid('value-'),
+            uniqid('hash-') => $v3 = uniqid('value-'),
         ];
-        $subject->method('_getWpdbExpressionHashMap')->willReturn($hashMap);
+        $tokens = [
+            $v1 => '%s',
+            $v2 => '%s',
+            $v3 => '%s',
+        ];
+        $values = [$v1, $v2, $v3];
+
+        $subject->method('_getWpdbExpressionHashMap')->willReturn($hashValueMap);
 
         $ordering = [
             $this->createOrdering(),
@@ -172,12 +179,12 @@ class DeleteCapableWpdbTraitTest extends TestCase
         $query = uniqid('query-');
         $subject->expects($this->atLeastOnce())
                 ->method('_buildDeleteSql')
-                ->with($table, $condition, $ordering, $limit, $offset, $hashMap)
+                ->with($table, $condition, $ordering, $limit, $offset, $tokens)
                 ->willReturn($query);
 
         $subject->expects($this->once())
                 ->method('_executeWpdbQuery')
-                ->with($query, array_flip($hashMap));
+                ->with($query, $values);
 
         $reflect->_delete($condition, $ordering, $limit, $offset);
     }

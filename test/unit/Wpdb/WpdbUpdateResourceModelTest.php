@@ -243,12 +243,12 @@ class WpdbUpdateResourceModelTest extends TestCase
                  ->with($this->contains($condition))
                  ->willReturn($where = '`users`.`user_age` > %s AND `users`.`user_age` < %s');
 
-        $queryRgx = '#UPDATE `users` SET `user_name` = [:0-9a-z]+, `user_age` = [:0-9a-z]+ WHERE '.$where.';#';
+        $expectedQuery = 'UPDATE `users` SET `user_name` = %s, `user_age` = %s WHERE '.$where.';';
 
         $preparedQuery = uniqid('prepared-query-');
         $wpdb->expects($this->once())
              ->method('prepare')
-             ->with($this->matchesRegularExpression($queryRgx), $this->isType('array'))
+             ->with($expectedQuery, $this->isType('array'))
              ->willReturn($preparedQuery);
 
         $wpdb->expects($this->once())

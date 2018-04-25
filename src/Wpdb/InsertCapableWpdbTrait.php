@@ -63,16 +63,19 @@ trait InsertCapableWpdbTrait
      */
     protected function _execInsert($records)
     {
-        $processedRecords = $this->_preProcessRecords($records, $valueHashMap);
+        $processedRecords = $this->_preProcessRecords($records, $hashValueMap);
+
+        $values = array_values($hashValueMap);
+        $tokens = array_combine($values, array_fill(0, count($values), '%s'));
 
         $query = $this->_buildInsertSql(
             $this->_getSqlInsertTable(),
             $this->_getSqlInsertColumnNames(),
             $processedRecords,
-            $valueHashMap
+            $tokens
         );
 
-        $this->_executeWpdbQuery($query, array_flip($valueHashMap));
+        $this->_executeWpdbQuery($query, $values);
 
         return [$this->_getWpdbLastInsertedId()];
     }
@@ -82,27 +85,26 @@ trait InsertCapableWpdbTrait
      *
      * @since [*next-version*]
      *
-     * @param array[]|ArrayAccess[]|stdClass[]|ContainerInterface[]|Traversable $records      A list of records.
-     * @param array                                                             $valueHashMap A hash-to-value map
-     *                                                                                        reference to which new
-     *                                                                                        hash-value pairs are
-     *                                                                                        written.
+     * @param array[]|ArrayAccess[]|stdClass[]|ContainerInterface[]|Traversable $records A list of records.
+     * @param array                                                             $hashMap A hash-to-value map reference
+     *                                                                                   to which new hash-value pairs
+     *                                                                                   are written.
      *
      * @throws ContainerExceptionInterface If an error occurred while reading from a record's container.
      *
      * @return array The pre-processed record data list, as an array of record data associative sub-arrays.
      */
-    protected function _preProcessRecords($records, &$valueHashMap = [])
+    protected function _preProcessRecords($records, &$hashMap = [])
     {
         // Initialize variable, in case it was declared implicitly during the method call
-        if ($valueHashMap === null) {
-            $valueHashMap = [];
+        if ($hashMap === null) {
+            $hashMap = [];
         }
 
         $newRecords = [];
 
         foreach ($records as $_idx => $_record) {
-            $newRecords[$_idx] = $this->_extractRecordData($_record, $valueHashMap);
+            $newRecords[$_idx] = $this->_extractRecordData($_record, $hashMap);
         }
 
         return $newRecords;
@@ -113,19 +115,19 @@ trait InsertCapableWpdbTrait
      *
      * @since [*next-version*]
      *
-     * @param array|ArrayAccess|stdClass|ContainerInterface $record       The record data container.
-     * @param array                                         $valueHashMap A value-to-hash map reference to which new
-     *                                                                    value-hash pairs are written.
+     * @param array|ArrayAccess|stdClass|ContainerInterface $record  The record data container.
+     * @param array                                         $hashMap A hash-to-value map reference to which new
+     *                                                               value-hash pairs are written.
      *
      * @throws ContainerExceptionInterface If an error occurred while reading from the record container.
      *
      * @return array The extracted record data as an associative array.
      */
-    protected function _extractRecordData($record, array &$valueHashMap = [])
+    protected function _extractRecordData($record, array &$hashMap = [])
     {
         // Initialize variable, in case it was declared implicitly during the method call
-        if ($valueHashMap === null) {
-            $valueHashMap = [];
+        if ($hashMap === null) {
+            $hashMap = [];
         }
 
         $result = [];
@@ -133,13 +135,14 @@ trait InsertCapableWpdbTrait
         foreach ($this->_getSqlInsertFieldColumnMap() as $_field => $_column) {
             try {
                 $_value = $this->_containerGet($record, $_field);
-                // Calculate hash for value
-                $_valueStr  = $this->_normalizeString($_value);
-                $_valueHash = $this->_getWpdbValueHashString($_value, count($valueHashMap) + 1);
-                // Add value-to-hash entry to map
-                $valueHashMap[$_valueStr] = $_valueHash;
                 // Add column-to-value entry to record data
                 $result[$_column] = $_value;
+
+                // Calculate hash for value
+                $_valueStr  = $this->_normalizeString($_value);
+                $_valueHash = $this->_getWpdbValueHashString($_valueStr, count($hashMap) + 1);
+                // Add value-to-hash entry to map
+                $hashMap[$_valueHash] = $_value;
             } catch (NotFoundExceptionInterface $notFoundException) {
                 continue;
             } catch (OutOfRangeException $outOfRangeException) {

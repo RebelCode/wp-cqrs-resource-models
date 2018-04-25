@@ -153,16 +153,18 @@ class SelectCapableWpdbTraitTest extends TestCase
         $cols = [uniqid('col-', 'col-')];
         $tables = [uniqid('table-'), uniqid('table-')];
         $fields = [uniqid('field-'), uniqid('field-')];
-        $vhm = [
+
+        $hashValueMap = [
             // value->hash map
-            $v1 = uniqid('value-') => $h1 = uniqid('hash-'),
-            $v2 = uniqid('value-') => $h2 = uniqid('hash-'),
+            uniqid('hash-') => $v1 = uniqid('value-'),
+            uniqid('hash-') => $v2 = uniqid('value-'),
         ];
-        $hvm = [
-            // hash->value map
-            $h1 => $v1,
-            $h2 => $v2,
+        $tokens = [
+            $v1 => '%s',
+            $v2 => '%s'
         ];
+        $values = [$v1, $v2];
+
         $joins = [
             $this->createLogicalExpression(uniqid('type-'), []),
             $this->createLogicalExpression(uniqid('type-'), []),
@@ -182,11 +184,11 @@ class SelectCapableWpdbTraitTest extends TestCase
         $subject->expects($this->atLeastOnce())
                 ->method('_getWpdbExpressionHashMap')
                 ->with($condition, $fields)
-                ->willReturn($vhm);
+                ->willReturn($hashValueMap);
 
         $subject->expects($this->once())
                 ->method('_buildSelectSql')
-                ->with($cols, $tables, $joins, $condition, $ordering, $limit, $offset, $vhm)
+                ->with($cols, $tables, $joins, $condition, $ordering, $limit, $offset, $tokens)
                 ->willReturn($query);
 
         $expected = [
@@ -197,7 +199,7 @@ class SelectCapableWpdbTraitTest extends TestCase
 
         $subject->expects($this->once())
                 ->method('_getWpdbQueryResults')
-                ->with($query, $hvm)
+                ->with($query, $values)
                 ->willReturn($expected);
 
         $result = $reflect->_select($condition, $ordering, $limit, $offset);

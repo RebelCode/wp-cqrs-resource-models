@@ -183,13 +183,26 @@ class InsertCapableWpdbTraitTest extends TestCase
                 $f3 => $r2v2 = uniqid('value-'),
             ],
         ];
-        $hash = uniqid('hash-');
-        $expectedValueHashMap = [
-            $r1v1 => $hash,
-            $r1v2 => $hash,
-            $r1v3 => $hash,
-            $r2v1 => $hash,
-            $r2v2 => $hash,
+        $hash1 = uniqid('hash-');
+        $hash2 = uniqid('hash-');
+        $hash3 = uniqid('hash-');
+        $hash4 = uniqid('hash-');
+        $hash5 = uniqid('hash-');
+
+        // Tokens and values expected to be received by the query builder and WPDB respectively
+        $tokens = [
+            $r1v1 => '%s',
+            $r1v2 => '%s',
+            $r1v3 => '%s',
+            $r2v1 => '%s',
+            $r2v2 => '%s',
+        ];
+        $values = [
+            $r1v1,
+            $r1v2,
+            $r1v3,
+            $r2v1,
+            $r2v2,
         ];
         $expectedRowSet = [
             [
@@ -211,17 +224,19 @@ class InsertCapableWpdbTraitTest extends TestCase
         $subject->method('_getSqlInsertTable')->willReturn($table);
         $subject->method('_getSqlInsertColumnNames')->willReturn($columns);
         $subject->method('_getSqlInsertFieldColumnMap')->willReturn($fieldColMap);
-        $subject->method('_getWpdbValueHashString')->willReturn($hash);
+        $subject->method('_getWpdbValueHashString')->willReturnOnConsecutiveCalls(
+            $hash1, $hash2, $hash3, $hash4, $hash5
+        );
         $subject->method('_getWpdbLastInsertedId')->willReturnOnConsecutiveCalls($id1, $id2);
 
         $subject->expects($this->atLeastOnce())
                 ->method('_buildInsertSql')
-                ->with($table, $columns, $expectedRowSet, $expectedValueHashMap)
+                ->with($table, $columns, $expectedRowSet, $tokens)
                 ->willReturn($query = uniqid('query-'));
 
         $subject->expects($this->once())
                 ->method('_executeWpdbQuery')
-                ->with($query, array_flip($expectedValueHashMap));
+                ->with($query, $values);
 
         $actual = $reflect->_insert($input);
 
@@ -261,16 +276,32 @@ class InsertCapableWpdbTraitTest extends TestCase
                 $f3 => $r2v2 = uniqid('value-'),
             ],
         ];
-        $hash = uniqid('hash-');
-        $expectedValueHashMap1 = [
-            $r1v1 => $hash,
-            $r1v2 => $hash,
-            $r1v3 => $hash,
+        $hash1 = uniqid('hash-');
+        $hash2 = uniqid('hash-');
+        $hash3 = uniqid('hash-');
+        $hash4 = uniqid('hash-');
+        $hash5 = uniqid('hash-');
+
+        // Tokens and values expected to be received by the query builder and WPDB respectively
+        $tokens1 = [
+            $r1v1 => '%s',
+            $r1v2 => '%s',
+            $r1v3 => '%s',
         ];
-        $expectedValueHashMap2 = [
-            $r2v1 => $hash,
-            $r2v2 => $hash,
+        $tokens2 = [
+            $r2v1 => '%s',
+            $r2v2 => '%s',
         ];
+        $values1 = [
+            $r1v1,
+            $r1v2,
+            $r1v3,
+        ];
+        $values2 = [
+            $r2v1,
+            $r2v2,
+        ];
+
         $expectedRowSet = [
             [
                 $c1 => $r1v1,
@@ -291,22 +322,24 @@ class InsertCapableWpdbTraitTest extends TestCase
         $subject->method('_getSqlInsertTable')->willReturn($table);
         $subject->method('_getSqlInsertColumnNames')->willReturn($columns);
         $subject->method('_getSqlInsertFieldColumnMap')->willReturn($fieldColMap);
-        $subject->method('_getWpdbValueHashString')->willReturn($hash);
+        $subject->method('_getWpdbValueHashString')->willReturnOnConsecutiveCalls(
+            $hash1, $hash2, $hash3, $hash4, $hash5
+        );
         $subject->method('_getWpdbLastInsertedId')->willReturnOnConsecutiveCalls($id1, $id2);
 
         $subject->expects($this->exactly(count($input)))
                 ->method('_buildInsertSql')
                 ->withConsecutive(
-                    [$table, $columns, [$expectedRowSet[0]], $expectedValueHashMap1],
-                    [$table, $columns, [$expectedRowSet[1]], $expectedValueHashMap2]
+                    [$table, $columns, [$expectedRowSet[0]], $tokens1],
+                    [$table, $columns, [$expectedRowSet[1]], $tokens2]
                 )
                 ->willReturn($query = uniqid('query-'));
 
         $subject->expects($this->exactly(count($input)))
                 ->method('_executeWpdbQuery')
                 ->withConsecutive(
-                    [$query, array_flip($expectedValueHashMap1)],
-                    [$query, array_flip($expectedValueHashMap2)]
+                    [$query, $values1],
+                    [$query, $values2]
                 );
 
         $actual = $reflect->_insert($input);

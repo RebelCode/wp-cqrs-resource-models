@@ -236,12 +236,12 @@ class WpdbInsertResourceModelTest extends TestCase
             ],
         ];
 
-        $queryRgx = '#INSERT INTO `users` \(`id`, `user_name`, `user_age`\) VALUES \([:0-9a-z]+, [:0-9a-z]+, [:0-9a-z]+\);#';
+        $expectedQuery = 'INSERT INTO `users` (`id`, `user_name`, `user_age`) VALUES (%s, %s, %s);';
 
         $preparedQuery = uniqid('prepared-query-');
         $wpdb->expects($this->once())
              ->method('prepare')
-             ->with($this->matchesRegularExpression($queryRgx), $this->isType('array'))
+             ->with($expectedQuery, $this->isType('array'))
              ->willReturn($preparedQuery);
 
         $wpdb->expects($this->once())

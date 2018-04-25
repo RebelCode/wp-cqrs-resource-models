@@ -80,7 +80,9 @@ trait GetWpdbExpressionHashMapCapableTrait
                 continue;
             }
 
-            $map[$_valueStr] = $this->_getWpdbValueHashString($_term->getValue(), count($map) + 1);
+            $_hash       = $this->_getWpdbValueHashString($_valueStr, count($map) + 1);
+
+            $map[$_hash] = $_value;
         }
     }
 

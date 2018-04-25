@@ -192,9 +192,9 @@ class UpdateCapableWpdbTraitTest extends TestCase
 
         // hash map generated for condition
         $cHashMap = [
-            $condVal1 = uniqid('value-') => $condHash1 = uniqid('hash-'),
-            $condVal2 = uniqid('value-') => $condHash2 = uniqid('hash-'),
-            $condVal3 = uniqid('value-') => $condHash3 = uniqid('hash-'),
+            $condHash1 = uniqid('hash-') => $condVal1 = uniqid('value-'),
+            $condHash2 = uniqid('hash-') => $condVal2 = uniqid('value-'),
+            $condHash3 = uniqid('hash-') => $condVal3 = uniqid('value-'),
         ];
         $subject->method('_getWpdbExpressionHashMap')->with($condition, $fields)->willReturn($cHashMap);
 
@@ -205,34 +205,40 @@ class UpdateCapableWpdbTraitTest extends TestCase
             $hash3 = uniqid('hash-')
         );
 
-        // Query to return from query builder
-        $query = uniqid('query-');
-        // Hash map expected to be received by the query builder
-        $expectedHashMap = [
-            $condVal1 => $condHash1,
-            $condVal2 => $condHash2,
-            $condVal3 => $condHash3,
-            $val1 => $hash1,
-            $val2 => $hash2,
-            $val3 => $hash3,
+        // Tokens and values expected to be received by the query builder and WPDB respectively
+        $tokens = [
+            $condVal1 => '%s',
+            $condVal2 => '%s',
+            $condVal3 => '%s',
+            $val1 => '%s',
+            $val2 => '%s',
+            $val3 => '%s',
+        ];
+        $values = [
+            $condVal1,
+            $condVal2,
+            $condVal3,
+            $val1,
+            $val2,
+            $val3,
         ];
         $processedChangeSet = [
             $col1 => $val1,
             $col2 => $val2,
             $col3 => $val3,
         ];
+
+        // Query to return from query builder
+        $query = uniqid('query-');
         $subject->expects($this->atLeastOnce())
                 ->method('_buildUpdateSql')
-                ->with($table, $processedChangeSet, $condition, $ordering, $limit, $expectedHashMap)
+                ->with($table, $processedChangeSet, $condition, $ordering, $limit, $tokens)
                 ->willReturn($query);
 
         // Expectation for query execution
         $subject->expects($this->once())
                 ->method('_executeWpdbQuery')
-                ->with(
-                    $query,
-                    array_flip($expectedHashMap)
-                );
+                ->with($query, $values);
 
         $reflect->_update($changeSet, $condition, $ordering, $limit);
     }

@@ -97,11 +97,11 @@ class GetWpdbValueHashStringCapableTraitTest extends TestCase
         $subject = $this->createInstance();
         $reflect = $this->reflect($subject);
 
-        $value = uniqid('value-');
-        $position = 3;
+        $value    = uniqid('value-');
+        $position = rand(1, 10);
 
-        $expected = ':3:' . hash('crc32b', $value);
-        $hash = $reflect->_getWpdbValueHashString($value, $position);
+        $expected = ':' . $position . ':' . hash('crc32b', $value);
+        $hash     = $reflect->_getWpdbValueHashString($value, $position);
 
         $this->assertEquals($expected, $hash, 'Expected and retrieved hash strings do not match.');
     }
