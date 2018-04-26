@@ -138,6 +138,10 @@ trait InsertCapableWpdbTrait
                 // Add column-to-value entry to record data
                 $result[$_column] = $_value;
 
+                if ($_value === null) {
+                    continue;
+                }
+
                 // Calculate hash for value
                 $_valueStr  = $this->_normalizeString($_value);
                 $_valueHash = $this->_getWpdbValueHashString($_valueStr, count($hashMap) + 1);

@@ -91,6 +91,10 @@ trait UpdateCapableWpdbTrait
             $_column                = $fcMap[$_field];
             $newChangeSet[$_column] = $_value;
 
+            if ($_value === null) {
+                continue;
+            }
+
             // Get hash for value
             $_valueStr  = $this->_normalizeString($_value);
             $_valueHash = ($_value instanceof TermInterface)
