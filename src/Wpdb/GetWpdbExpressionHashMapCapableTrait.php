@@ -73,10 +73,12 @@ trait GetWpdbExpressionHashMapCapableTrait
             }
 
             $_value    = $_term->getValue();
-            $_valueStr = $this->_normalizeString($_value);
+            $_valueStr = ($_value !== null)
+                ? $this->_normalizeString($_value)
+                : '';
 
-            // If in ignore list or already in the map, ignore
-            if (in_array($_valueStr, $ignore)) {
+            // If in ignore list or not a hash-able value, ignore
+            if (empty($_valueStr) || in_array($_valueStr, $ignore)) {
                 continue;
             }
 
