@@ -47,7 +47,7 @@ use wpdb;
  *
  * @since [*next-version*]
  */
-class AbstractBaseWpdbDeleteResourceModel extends AbstractWpdbResourceModel implements DeleteCapableInterface
+abstract class AbstractBaseWpdbDeleteResourceModel extends AbstractWpdbResourceModel implements DeleteCapableInterface
 {
     /*
      * Provides WPDB SQL DELETE functionality.
