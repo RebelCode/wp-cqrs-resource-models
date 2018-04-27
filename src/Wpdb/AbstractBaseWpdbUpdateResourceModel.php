@@ -19,6 +19,7 @@ use Dhii\Output\TemplateInterface;
 use Dhii\Storage\Resource\UpdateCapableInterface;
 use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
 use Dhii\Util\Normalization\NormalizeIntCapableTrait;
+use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use RebelCode\Storage\Resource\Sql\BuildSqlLimitCapableTrait;
@@ -161,6 +162,13 @@ abstract class AbstractBaseWpdbUpdateResourceModel extends AbstractWpdbResourceM
      * @since [*next-version*]
      */
     use NormalizeArrayCapableTrait;
+
+    /*
+     * Provides iterable normalization functionality.
+     *
+     * @since [*next-version*]
+     */
+    use NormalizeIterableCapableTrait;
 
     /*
      * Provides integer normalization functionality.

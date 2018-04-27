@@ -12,6 +12,7 @@ use Dhii\Exception\CreateOutOfRangeExceptionCapableTrait;
 use Dhii\I18n\StringTranslatingTrait;
 use Dhii\Storage\Resource\InsertCapableInterface;
 use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
+use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use RebelCode\Storage\Resource\Sql\BuildInsertSqlCapableTrait;
@@ -139,6 +140,13 @@ abstract class AbstractBaseWpdbInsertResourceModel extends AbstractWpdbResourceM
      * @since [*next-version*]
      */
     use NormalizeArrayCapableTrait;
+
+    /*
+     * Provides iterable normalization functionality.
+     *
+     * @since [*next-version*]
+     */
+    use NormalizeIterableCapableTrait;
 
     /*
      * Provides SQL value normalization functionality.
