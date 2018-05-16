@@ -175,12 +175,12 @@ class ExtractPostIDsFromExpressionCapableTraitTest extends TestCase
         $subject->method('_getPostIdFieldName')->willReturn($field);
 
         $ids = [
-            $id1 = rand(1, 500),
-            $id2 = rand(1, 500),
-            $id3 = rand(1, 500),
-            $id4 = rand(1, 500),
+            $id1 = rand(1, 10),
+            $id2 = rand(11, 20),
+            $id3 = rand(21, 30),
+            $id4 = rand(31, 40),
             // range
-            $id5 = rand(1, 500),
+            $id5 = rand(41, 50),
             $id6 = $id5 + 1,
             $id7 = $id5 + 2,
             $id8 = $id5 + 3,
