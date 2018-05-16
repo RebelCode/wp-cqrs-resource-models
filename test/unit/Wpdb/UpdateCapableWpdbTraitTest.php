@@ -166,9 +166,9 @@ class UpdateCapableWpdbTraitTest extends TestCase
         // Arguments
         $condition = $this->createLogicalExpression('', []);
         $changeSet = [
-            $field1 = uniqid('field-') => $val1 = uniqid('value-'),
-            $field2 = uniqid('field-') => $val2 = uniqid('value-'),
-            $field3 = uniqid('field-') => $val3 = uniqid('value-'),
+            $field1 = uniqid('field1-') => $val1 = uniqid('value1-'),
+            $field2 = uniqid('field2-') => $val2 = uniqid('value2-'),
+            $field3 = uniqid('field3-') => $val3 = uniqid('value3-'),
         ];
         $ordering = [
             $this->createOrdering(),
@@ -183,25 +183,25 @@ class UpdateCapableWpdbTraitTest extends TestCase
         $table = uniqid('table-');
         $fields = [$field1, $field2, $field3];
         $fieldColumnMap = [
-            $field1 => $col1 = uniqid('column-'),
-            $field2 => $col2 = uniqid('column-'),
-            $field3 => $col3 = uniqid('column-'),
+            $field1 => $col1 = uniqid('column1-'),
+            $field2 => $col2 = uniqid('column2-'),
+            $field3 => $col3 = uniqid('column3-'),
         ];
         $subject->method('_getSqlUpdateTable')->willReturn($table);
         $subject->method('_getSqlUpdateFieldColumnMap')->willReturn($fieldColumnMap);
 
         // hash map generated for condition
         $cHashMap = [
-            $condHash1 = uniqid('hash-') => $condVal1 = uniqid('value-'),
-            $condHash2 = uniqid('hash-') => $condVal2 = uniqid('value-'),
-            $condHash3 = uniqid('hash-') => $condVal3 = uniqid('value-'),
+            $condHash1 = uniqid('hash1-') => $condVal1 = uniqid('value1-'),
+            $condHash2 = uniqid('hash2-') => $condVal2 = uniqid('value2-'),
+            $condHash3 = uniqid('hash3-') => $condVal3 = uniqid('value3-'),
         ];
 
         // Hashes for the change set
         $subject->method('_getWpdbValueHashString')->willReturnOnConsecutiveCalls(
-            $hash1 = uniqid('hash-'),
-            $hash2 = uniqid('hash-'),
-            $hash3 = uniqid('hash-')
+            $hash1 = uniqid('hash1-'),
+            $hash2 = uniqid('hash2-'),
+            $hash3 = uniqid('hash3-')
         );
 
         // Initial value hash map, before processing the condition

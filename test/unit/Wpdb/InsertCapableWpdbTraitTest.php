@@ -163,31 +163,31 @@ class InsertCapableWpdbTraitTest extends TestCase
 
         $table = uniqid('table-');
         $columns = [
-            $c1 = uniqid('column-'),
-            $c2 = uniqid('column-'),
-            $c3 = uniqid('column-'),
+            $c1 = uniqid('column1-'),
+            $c2 = uniqid('column2-'),
+            $c3 = uniqid('column3-'),
         ];
         $fieldColMap = [
-            $f1 = uniqid('field-') => $c1,
-            $f2 = uniqid('field-') => $c2,
-            $f3 = uniqid('field-') => $c3,
+            $f1 = uniqid('field1-') => $c1,
+            $f2 = uniqid('field2-') => $c2,
+            $f3 = uniqid('field3-') => $c3,
         ];
         $input = [
             [
-                $f1 => $r1v1 = uniqid('value-'),
-                $f2 => $r1v2 = uniqid('value-'),
-                $f3 => $r1v3 = uniqid('value-'),
+                $f1 => $r1v1 = uniqid('value1-'),
+                $f2 => $r1v2 = uniqid('value2-'),
+                $f3 => $r1v3 = uniqid('value3-'),
             ],
             [
-                $f2 => $r2v1 = uniqid('value-'),
-                $f3 => $r2v2 = uniqid('value-'),
+                $f2 => $r2v1 = uniqid('value1-'),
+                $f3 => $r2v2 = uniqid('value2-'),
             ],
         ];
-        $hash1 = uniqid('hash-');
-        $hash2 = uniqid('hash-');
-        $hash3 = uniqid('hash-');
-        $hash4 = uniqid('hash-');
-        $hash5 = uniqid('hash-');
+        $hash1 = uniqid('hash1-');
+        $hash2 = uniqid('hash2-');
+        $hash3 = uniqid('hash3-');
+        $hash4 = uniqid('hash4-');
+        $hash5 = uniqid('hash5-');
 
         // Tokens and values expected to be received by the query builder and WPDB respectively
         $tokens = [
@@ -256,31 +256,31 @@ class InsertCapableWpdbTraitTest extends TestCase
 
         $table = uniqid('table-');
         $columns = [
-            $c1 = uniqid('column-'),
-            $c2 = uniqid('column-'),
-            $c3 = uniqid('column-'),
+            $c1 = uniqid('column1-'),
+            $c2 = uniqid('column2-'),
+            $c3 = uniqid('column3-'),
         ];
         $fieldColMap = [
-            $f1 = uniqid('field-') => $c1,
-            $f2 = uniqid('field-') => $c2,
-            $f3 = uniqid('field-') => $c3,
+            $f1 = uniqid('field1-') => $c1,
+            $f2 = uniqid('field2-') => $c2,
+            $f3 = uniqid('field3-') => $c3,
         ];
         $input = [
             [
-                $f1 => $r1v1 = uniqid('value-'),
-                $f2 => $r1v2 = uniqid('value-'),
-                $f3 => $r1v3 = uniqid('value-'),
+                $f1 => $r1v1 = uniqid('value1-'),
+                $f2 => $r1v2 = uniqid('value2-'),
+                $f3 => $r1v3 = uniqid('value3-'),
             ],
             [
-                $f2 => $r2v1 = uniqid('value-'),
-                $f3 => $r2v2 = uniqid('value-'),
+                $f2 => $r2v1 = uniqid('value1-'),
+                $f3 => $r2v2 = uniqid('value2-'),
             ],
         ];
-        $hash1 = uniqid('hash-');
-        $hash2 = uniqid('hash-');
-        $hash3 = uniqid('hash-');
-        $hash4 = uniqid('hash-');
-        $hash5 = uniqid('hash-');
+        $hash1 = uniqid('hash1-');
+        $hash2 = uniqid('hash2-');
+        $hash3 = uniqid('hash3-');
+        $hash4 = uniqid('hash4-');
+        $hash5 = uniqid('hash5-');
 
         // Tokens and values expected to be received by the query builder and WPDB respectively
         $tokens1 = [
