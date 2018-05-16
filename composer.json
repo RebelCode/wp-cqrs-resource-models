@@ -14,8 +14,8 @@
     "require": {
         "php": "^5.4 | ^7.0",
         "dhii/cqrs-resource-model-interface": "^0.1-alpha2",
-        "rebelcode/sql-cqrs-resource-models-abstract": "dev-task/initial-classes",
-        "rebelcode/expression-wp-query-builder": "dev-task/initial-classes",
+        "rebelcode/sql-cqrs-resource-models-abstract": "^0.1-alpha1",
+        "rebelcode/expression-wp-query-builder": "^0.1-alpha1",
         "dhii/normalization-helper-base": "^0.1",
         "dhii/callback-abstract": "^0.1-alpha4",
         "dhii/exception": "^0.1-alpha4",
@@ -56,8 +56,5 @@
         "branch-alias": {
             "dev-develop": "0.1.x-dev"
         }
-    },
-    "config": {
-        "disable-tls": true
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "94d12f69d5613354830f68ed501c33bf",
+    "content-hash": "31c7867c4a49a01ce4d6e004b082401f",
     "packages": [
         {
             "name": "dhii/callback-abstract",
@@ -1029,16 +1029,16 @@
         },
         {
             "name": "rebelcode/expression-wp-query-builder",
-            "version": "dev-task/initial-classes",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/expression-wp-query-builder-abstract.git",
-                "reference": "a2804de8954b7f0d15ffd05dd56478a6cb22850f"
+                "reference": "1f72a94ad22cd56aa50cc88bfb6ac068e732bf0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/expression-wp-query-builder-abstract/zipball/a2804de8954b7f0d15ffd05dd56478a6cb22850f",
-                "reference": "a2804de8954b7f0d15ffd05dd56478a6cb22850f",
+                "url": "https://api.github.com/repos/RebelCode/expression-wp-query-builder-abstract/zipball/1f72a94ad22cd56aa50cc88bfb6ac068e732bf0c",
+                "reference": "1f72a94ad22cd56aa50cc88bfb6ac068e732bf0c",
                 "shasum": ""
             },
             "require": {
@@ -1054,6 +1054,11 @@
                 "ptrofimov/xpmock": "^1.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "RebelCode\\WordPress\\Query\\Builder\\": "src"
@@ -1070,20 +1075,20 @@
                 }
             ],
             "description": "Abstract functionality for building WP_Query args using expressions.",
-            "time": "2018-02-26T17:08:18+00:00"
+            "time": "2018-05-16T10:53:34+00:00"
         },
         {
             "name": "rebelcode/sql-cqrs-resource-models-abstract",
-            "version": "dev-task/initial-classes",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/sql-cqrs-resource-models-abstract.git",
-                "reference": "33b8fb98497b43ec187b1653d58c0c3abd346674"
+                "reference": "af88e1c69df6b5c2be84391a6df1d27022a9e52b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/sql-cqrs-resource-models-abstract/zipball/33b8fb98497b43ec187b1653d58c0c3abd346674",
-                "reference": "33b8fb98497b43ec187b1653d58c0c3abd346674",
+                "url": "https://api.github.com/repos/RebelCode/sql-cqrs-resource-models-abstract/zipball/af88e1c69df6b5c2be84391a6df1d27022a9e52b",
+                "reference": "af88e1c69df6b5c2be84391a6df1d27022a9e52b",
                 "shasum": ""
             },
             "require": {
@@ -1123,7 +1128,7 @@
                 }
             ],
             "description": "Abstract functionality for SQL CQRS resource models.",
-            "time": "2018-04-30T16:25:09+00:00"
+            "time": "2018-05-16T10:12:48+00:00"
         }
     ],
     "packages-dev": [
@@ -2960,16 +2965,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.7.0",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b"
+                "reference": "3296adf6a6454a050679cde90f95350ad604b171"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/78be803ce01e55d3491c1397cf1c64beb9c1b63b",
-                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
+                "reference": "3296adf6a6454a050679cde90f95350ad604b171",
                 "shasum": ""
             },
             "require": {
@@ -2981,7 +2986,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.7-dev"
+                    "dev-master": "1.8-dev"
                 }
             },
             "autoload": {
@@ -3015,7 +3020,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-01-30T19:27:44+00:00"
+            "time": "2018-04-26T10:06:28+00:00"
         },
         {
             "name": "symfony/process",
@@ -3167,10 +3172,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "rebelcode/sql-cqrs-resource-models-abstract": 20,
-        "rebelcode/expression-wp-query-builder": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
