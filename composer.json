@@ -56,8 +56,5 @@
         "branch-alias": {
             "dev-develop": "0.1.x-dev"
         }
-    },
-    "config": {
-        "disable-tls": true
     }
 }
