@@ -270,7 +270,7 @@ class NormalizeWpPostDataArrayCapableTraitTest extends TestCase
             $exp1 = uniqid('string-'),
             $exp2 = rand(1, 100),
             $this->createStringable($exp3 = uniqid('string-')),
-            $exp4 = floatval(rand(1, 00)) / floatval(rand(1, 00)),
+            $exp4 = floatval(rand(1, 100)) / floatval(rand(1, 100)),
             $this->createLiteralTerm('', $exp5 = uniqid('value-')),
         ];
         $expected = [
