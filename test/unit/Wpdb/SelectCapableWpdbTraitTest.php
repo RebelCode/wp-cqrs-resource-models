@@ -176,11 +176,16 @@ class SelectCapableWpdbTraitTest extends TestCase
         $limit = rand(50, 100);
         $offset = rand(0, 50);
         $query = uniqid('query-');
+        $grouping = [
+            uniqid('field1'),
+            uniqid('field2'),
+        ];
 
         $subject->method('_getSqlSelectColumns')->willReturn($cols);
         $subject->method('_getSqlSelectTables')->willReturn($tables);
         $subject->method('_getSqlSelectJoinConditions')->willReturn($joins);
         $subject->method('_getSqlSelectFieldNames')->willReturn($fields);
+        $subject->method('_getSqlSelectGrouping')->willReturn($grouping);
         $subject->expects($this->atLeastOnce())
                 ->method('_getWpdbExpressionHashMap')
                 ->with($condition, $fields)
@@ -188,7 +193,7 @@ class SelectCapableWpdbTraitTest extends TestCase
 
         $subject->expects($this->once())
                 ->method('_buildSelectSql')
-                ->with($cols, $tables, $joins, $condition, $ordering, $limit, $offset, $tokens)
+                ->with($cols, $tables, $joins, $condition, $ordering, $limit, $offset, $grouping, $tokens)
                 ->willReturn($query);
 
         $expected = [

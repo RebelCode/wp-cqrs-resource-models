@@ -4,6 +4,7 @@ namespace RebelCode\Storage\Resource\WordPress\Wpdb;
 
 use Dhii\Expression\ExpressionInterface;
 use Dhii\Expression\LogicalExpressionInterface;
+use Dhii\Storage\Resource\Sql\EntityFieldInterface;
 use Dhii\Storage\Resource\Sql\OrderInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use InvalidArgumentException;
@@ -53,6 +54,7 @@ trait SelectCapableWpdbTrait
             $ordering,
             $limit,
             $offset,
+            $this->_getSqlSelectGrouping(),
             $tokens
         );
 
@@ -126,6 +128,15 @@ trait SelectCapableWpdbTrait
      * @return LogicalExpressionInterface[] An assoc. array of logical expressions, keyed by the joined table name.
      */
     abstract protected function _getSqlSelectJoinConditions();
+
+    /**
+     * Retrieves the fields to group by in SQL SELECT queries.
+     *
+     * @since [*next-version*]
+     *
+     * @return string[]|Stringable[]|EntityFieldInterface[]|stdClass|Traversable The fields to group by.
+     */
+    abstract protected function _getSqlSelectGrouping();
 
     /**
      * Retrieves the expression value hash map for a given WPDB SQL condition, for use in WPDB args interpolation.
