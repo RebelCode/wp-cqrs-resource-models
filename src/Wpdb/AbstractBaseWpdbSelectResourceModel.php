@@ -17,6 +17,7 @@ use Dhii\Iterator\CountIterableCapableTrait;
 use Dhii\Iterator\ResolveIteratorCapableTrait;
 use Dhii\Output\TemplateInterface;
 use Dhii\Storage\Resource\SelectCapableInterface;
+use Dhii\Storage\Resource\Sql\EntityFieldInterface;
 use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
 use Dhii\Util\Normalization\NormalizeIntCapableTrait;
 use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
@@ -391,6 +392,16 @@ abstract class AbstractBaseWpdbSelectResourceModel extends AbstractWpdbResourceM
     protected function _getSqlJoinType(ExpressionInterface $expression)
     {
         return 'INNER';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    protected function _getSqlSelectGrouping()
+    {
+        return [];
     }
 
     /**
