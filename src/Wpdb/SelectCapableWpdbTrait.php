@@ -66,15 +66,28 @@ trait SelectCapableWpdbTrait
      *
      * @since [*next-version*]
      *
-     * @param array|stdClass|Traversable        $columns  The columns, as a map of aliases (as keys) mapping to
-     *                                                    column names, expressions or entity field instances.
-     * @param array|stdClass|Traversable        $tables   A mapping of tables aliases (keys) to their real names.
-     * @param array|Traversable                 $joins    A list of JOIN logical expressions, keyed by table name.
-     * @param LogicalExpressionInterface|null   $where    The WHERE logical expression condition.
-     * @param OrderInterface[]|Traversable|null $ordering The ordering, as a list of OrderInterface instances.
-     * @param int|null                          $limit    The number of records to limit the query to.
-     * @param int|null                          $offset   The number of records to offset by, zero-based.
-     * @param array                             $hashmap  Optional map of value names and their hashes.
+     * @param array|stdClass|Traversable                                        $columns  The columns, as a map of
+     *                                                                                    aliases (as keys) mapping to
+     *                                                                                    column names, expressions or
+     *                                                                                    entity field instances.
+     * @param array|stdClass|Traversable                                        $tables   A mapping of tables aliases
+     *                                                                                    (keys) to their real names.
+     * @param array|Traversable                                                 $joins    A list of JOIN logical
+     *                                                                                    expressions, keyed by table
+     *                                                                                    name.
+     * @param LogicalExpressionInterface|null                                   $where    The WHERE logical expression
+     *                                                                                    condition.
+     * @param OrderInterface[]|Traversable|null                                 $ordering The ordering, as a list of
+     *                                                                                    OrderInterface instances.
+     * @param int|null                                                          $limit    The number of records to
+     *                                                                                    limit the query to.
+     * @param int|null                                                          $offset   The number of records to
+     *                                                                                    offset by, zero-based.
+     * @param string[]|Stringable[]|EntityFieldInterface[]|stdClass|Traversable $grouping A list of strings, stringable
+     *                                                                                    objects or entity-field
+     *                                                                                    instances.
+     * @param array                                                             $hashmap  Optional map of value names
+     *                                                                                    and their hashes.
      *
      * @throws InvalidArgumentException If an argument is invalid.
      * @throws OutOfRangeException      If the limit or offset are invalid numbers.
@@ -89,6 +102,7 @@ trait SelectCapableWpdbTrait
         $ordering = null,
         $limit = null,
         $offset = null,
+        $grouping = [],
         array $hashmap = []
     );
 
