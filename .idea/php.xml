@@ -25,13 +25,9 @@
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit-mock-objects" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
-      <path value="$PROJECT_DIR$/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/vendor/symfony/config" />
-      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
       <path value="$PROJECT_DIR$/vendor/symfony/stopwatch" />
-      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/ptrofimov/xpmock" />
       <path value="$PROJECT_DIR$/vendor/rebelcode/sql-cqrs-resource-models-abstract" />
@@ -49,7 +45,6 @@
       <path value="$PROJECT_DIR$/vendor/dhii/data-container-abstract" />
       <path value="$PROJECT_DIR$/vendor/dhii/exception" />
       <path value="$PROJECT_DIR$/vendor/dhii/data-container-interface" />
-      <path value="$PROJECT_DIR$/vendor/dhii/normalization-helper-base" />
       <path value="$PROJECT_DIR$/vendor/dhii/container-helper-base" />
       <path value="$PROJECT_DIR$/vendor/dhii/iterator-helper-base" />
       <path value="$PROJECT_DIR$/vendor/dhii/data-container-base" />
@@ -64,6 +59,12 @@
       <path value="$PROJECT_DIR$/vendor/dhii/callback-abstract" />
       <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/dhii/normalization-helper-base" />
+      <path value="$PROJECT_DIR$/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />
