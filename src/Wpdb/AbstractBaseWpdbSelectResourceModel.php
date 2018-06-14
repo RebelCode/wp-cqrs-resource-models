@@ -26,6 +26,7 @@ use Dhii\Util\String\StringableInterface as Stringable;
 use RebelCode\Storage\Resource\Sql\BuildSelectSqlCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlColumnListCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlFromCapableTrait;
+use RebelCode\Storage\Resource\Sql\BuildSqlGroupByClauseCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlJoinsCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlLimitCapableTrait;
 use RebelCode\Storage\Resource\Sql\BuildSqlOffsetCapableTrait;
@@ -121,6 +122,13 @@ abstract class AbstractBaseWpdbSelectResourceModel extends AbstractWpdbResourceM
      * @since [*next-version*]
      */
     use BuildSqlOffsetCapableTrait;
+
+    /*
+     * Provides SQL GROUP BY building functionality.
+     *
+     * @since [*next-version*]
+     */
+    use BuildSqlGroupByClauseCapableTrait;
 
     /*
      * Provides SQL reference escaping functionality.
