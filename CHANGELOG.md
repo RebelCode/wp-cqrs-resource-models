@@ -6,5 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
 
+## [0.1-alpha2] - 2018-06-14
+### Changed
+- Now using newer version of `sql-cqrs-resource-models-abstract`, and fixed compatibility with it.
+
 ## [0.1-alpha1] - 2018-05-16
 Initial version.
