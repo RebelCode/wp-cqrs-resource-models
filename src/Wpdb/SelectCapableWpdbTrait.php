@@ -4,6 +4,7 @@ namespace RebelCode\Storage\Resource\WordPress\Wpdb;
 
 use Dhii\Expression\ExpressionInterface;
 use Dhii\Expression\LogicalExpressionInterface;
+use Dhii\Storage\Resource\Sql\EntityFieldInterface;
 use Dhii\Storage\Resource\Sql\OrderInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use InvalidArgumentException;
@@ -53,6 +54,7 @@ trait SelectCapableWpdbTrait
             $ordering,
             $limit,
             $offset,
+            $this->_getSqlSelectGrouping(),
             $tokens
         );
 
@@ -64,15 +66,28 @@ trait SelectCapableWpdbTrait
      *
      * @since [*next-version*]
      *
-     * @param array|stdClass|Traversable        $columns  The columns, as a map of aliases (as keys) mapping to
-     *                                                    column names, expressions or entity field instances.
-     * @param array|stdClass|Traversable        $tables   A mapping of tables aliases (keys) to their real names.
-     * @param array|Traversable                 $joins    A list of JOIN logical expressions, keyed by table name.
-     * @param LogicalExpressionInterface|null   $where    The WHERE logical expression condition.
-     * @param OrderInterface[]|Traversable|null $ordering The ordering, as a list of OrderInterface instances.
-     * @param int|null                          $limit    The number of records to limit the query to.
-     * @param int|null                          $offset   The number of records to offset by, zero-based.
-     * @param array                             $hashmap  Optional map of value names and their hashes.
+     * @param array|stdClass|Traversable                                        $columns  The columns, as a map of
+     *                                                                                    aliases (as keys) mapping to
+     *                                                                                    column names, expressions or
+     *                                                                                    entity field instances.
+     * @param array|stdClass|Traversable                                        $tables   A mapping of tables aliases
+     *                                                                                    (keys) to their real names.
+     * @param array|Traversable                                                 $joins    A list of JOIN logical
+     *                                                                                    expressions, keyed by table
+     *                                                                                    name.
+     * @param LogicalExpressionInterface|null                                   $where    The WHERE logical expression
+     *                                                                                    condition.
+     * @param OrderInterface[]|Traversable|null                                 $ordering The ordering, as a list of
+     *                                                                                    OrderInterface instances.
+     * @param int|null                                                          $limit    The number of records to
+     *                                                                                    limit the query to.
+     * @param int|null                                                          $offset   The number of records to
+     *                                                                                    offset by, zero-based.
+     * @param string[]|Stringable[]|EntityFieldInterface[]|stdClass|Traversable $grouping A list of strings, stringable
+     *                                                                                    objects or entity-field
+     *                                                                                    instances.
+     * @param array                                                             $hashmap  Optional map of value names
+     *                                                                                    and their hashes.
      *
      * @throws InvalidArgumentException If an argument is invalid.
      * @throws OutOfRangeException      If the limit or offset are invalid numbers.
@@ -87,6 +102,7 @@ trait SelectCapableWpdbTrait
         $ordering = null,
         $limit = null,
         $offset = null,
+        $grouping = [],
         array $hashmap = []
     );
 
@@ -126,6 +142,15 @@ trait SelectCapableWpdbTrait
      * @return LogicalExpressionInterface[] An assoc. array of logical expressions, keyed by the joined table name.
      */
     abstract protected function _getSqlSelectJoinConditions();
+
+    /**
+     * Retrieves the fields to group by in SQL SELECT queries.
+     *
+     * @since [*next-version*]
+     *
+     * @return string[]|Stringable[]|EntityFieldInterface[]|stdClass|Traversable The fields to group by.
+     */
+    abstract protected function _getSqlSelectGrouping();
 
     /**
      * Retrieves the expression value hash map for a given WPDB SQL condition, for use in WPDB args interpolation.
