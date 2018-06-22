@@ -35,6 +35,8 @@
         "dhii/sql-interface": "^0.1",
         "dhii/factory-interface": "^0.1-alpha2",
         "dhii/invocable-interface": "^0.1-alpha1",
+        "dhii/collections-interface": "^0.2-alpha5",
+        "dhii/map-": "",
         "johnpbloch/wordpress-core": "^4.0"
     },
     "autoload": {
