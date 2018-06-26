@@ -418,7 +418,7 @@ abstract class AbstractBaseWpdbSelectResourceModel extends AbstractWpdbResourceM
      *
      * @since [*next-version*]
      *
-     * @param array|stdClass|ArrayObject|null $rawResult The raw data for the record.
+     * @param array|stdClass|ArrayObject $rawResult The raw data for the record.
      *
      * @return MapInterface The created data map that contains the record data.
      */
