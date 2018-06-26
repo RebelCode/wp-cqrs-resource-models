@@ -13,7 +13,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^5.4 | ^7.0",
-        "dhii/cqrs-resource-model-interface": "^0.1-alpha2",
+        "dhii/cqrs-resource-model-interface": "^0.2-alpha1",
         "rebelcode/sql-cqrs-resource-models-abstract": "^0.2-alpha1",
         "rebelcode/expression-wp-query-builder": "^0.1-alpha1",
         "dhii/normalization-helper-base": "^0.1",
