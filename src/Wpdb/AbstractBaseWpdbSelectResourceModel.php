@@ -398,7 +398,8 @@ abstract class AbstractBaseWpdbSelectResourceModel extends AbstractWpdbResourceM
      *
      * @since [*next-version*]
      *
-     * @param array|stdClass|Traversable $rawResults The list of raw record data sets.
+     * @param array|stdClass|Traversable $rawResults The list of raw record data sets, as arrays, stdClass instances
+     *                                               or any array-like and traversable instance, such as ArrayObject.
      *
      * @return MapInterface[]|stdClass|Traversable A list of maps, each containing data for a record.
      */
