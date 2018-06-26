@@ -407,7 +407,7 @@ abstract class AbstractBaseWpdbSelectResourceModel extends AbstractWpdbResourceM
     {
         $results = [];
 
-        foreach ($rawResults as $_rawResult) {
+        foreach ($this->_normalizeIterable($rawResults) as $_rawResult) {
             $results[] = $this->_createResult($_rawResult);
         }
 
