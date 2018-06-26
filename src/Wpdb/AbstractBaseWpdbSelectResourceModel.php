@@ -2,7 +2,9 @@
 
 namespace RebelCode\Storage\Resource\WordPress\Wpdb;
 
+use ArrayObject;
 use Dhii\Collection\MapFactoryInterface;
+use Dhii\Collection\MapInterface;
 use Dhii\Data\Container\ContainerGetCapableTrait;
 use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
 use Dhii\Data\Container\CreateNotFoundExceptionCapableTrait;
@@ -362,17 +364,9 @@ abstract class AbstractBaseWpdbSelectResourceModel extends AbstractWpdbResourceM
         $limit = null,
         $offset = null
     ) {
-        $raw     = $this->_select($condition, $ordering, $limit, $offset);
-        $factory = $this->_getMapFactory();
-        $maps    = [];
+        $rawResults = $this->_select($condition, $ordering, $limit, $offset);
 
-        foreach ($raw as $_record) {
-            $maps[] = $factory->make([
-                MapFactoryInterface::K_DATA => $_record
-            ]);
-        }
-
-        return $maps;
+        return $this->_createResultSet($rawResults);
     }
 
     /**
@@ -397,6 +391,42 @@ abstract class AbstractBaseWpdbSelectResourceModel extends AbstractWpdbResourceM
     protected function _setMapFactory(MapFactoryInterface $mapFactory)
     {
         $this->mapFactory = $mapFactory;
+    }
+
+    /**
+     * Creates the result set from raw record data sets.
+     *
+     * @since [*next-version*]
+     *
+     * @param array|stdClass|Traversable $rawResults The list of raw record data sets.
+     *
+     * @return MapInterface[]|stdClass|Traversable A list of maps, each containing data for a record.
+     */
+    protected function _createResultSet($rawResults)
+    {
+        $results = [];
+
+        foreach ($rawResults as $_rawResult) {
+            $results[] = $this->_createResult($_rawResult);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Creates the result map from the raw data of a record.
+     *
+     * @since [*next-version*]
+     *
+     * @param array|stdClass|ArrayObject|null $rawResult The raw data for the record.
+     *
+     * @return MapInterface The created data map that contains the record data.
+     */
+    protected function _createResult($rawResult)
+    {
+        return $this->_getMapFactory()->make([
+            MapFactoryInterface::K_DATA => $rawResult
+        ]);
     }
 
     /**
