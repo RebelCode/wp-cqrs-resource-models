@@ -2,6 +2,9 @@
 
 namespace RebelCode\Storage\Resource\WordPress\Wpdb;
 
+use ArrayObject;
+use Dhii\Collection\MapFactoryInterface;
+use Dhii\Collection\MapInterface;
 use Dhii\Data\Container\ContainerGetCapableTrait;
 use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
 use Dhii\Data\Container\CreateNotFoundExceptionCapableTrait;
@@ -313,12 +316,22 @@ abstract class AbstractBaseWpdbSelectResourceModel extends AbstractWpdbResourceM
     const JOIN_MODE = 'LEFT';
 
     /**
+     * The map factory, used for creating record data maps.
+     *
+     * @since [*next-version*]
+     *
+     * @var MapFactoryInterface
+     */
+    protected $mapFactory;
+
+    /**
      * Initializes the instance.
      *
      * @since [*next-version*]
      *
      * @param wpdb                         $wpdb               The WPDB instance to use to prepare and execute queries.
      * @param TemplateInterface            $expressionTemplate The template for rendering SQL expressions.
+     * @param MapFactoryInterface          $factory            The factory that creates maps, for the returned records.
      * @param array|stdClass|Traversable   $tables             The tables names (values) mapping to their aliases (keys)
      *                                                         or null for no aliasing.
      * @param string[]|Stringable[]        $fieldColumnMap     A map of field names to table column names.
@@ -327,12 +340,14 @@ abstract class AbstractBaseWpdbSelectResourceModel extends AbstractWpdbResourceM
     protected function _init(
         wpdb $wpdb,
         TemplateInterface $expressionTemplate,
+        MapFactoryInterface $factory,
         $tables,
         $fieldColumnMap,
         $joins = []
     ) {
         $this->_setWpdb($wpdb);
         $this->_setSqlExpressionTemplate($expressionTemplate);
+        $this->_setMapFactory($factory);
         $this->_setSqlTableList($tables);
         $this->_setSqlFieldColumnMap($fieldColumnMap);
         $this->_setSqlJoinConditions($joins);
@@ -349,7 +364,70 @@ abstract class AbstractBaseWpdbSelectResourceModel extends AbstractWpdbResourceM
         $limit = null,
         $offset = null
     ) {
-        return $this->_select($condition, $ordering, $limit, $offset);
+        $rawResults = $this->_select($condition, $ordering, $limit, $offset);
+
+        return $this->_createResultSet($rawResults);
+    }
+
+    /**
+     * Retrieves the map factory.
+     *
+     * @since [*next-version*]
+     *
+     * @return MapFactoryInterface The map factory instance.
+     */
+    protected function _getMapFactory()
+    {
+        return $this->mapFactory;
+    }
+
+    /**
+     * Sets the map factory.
+     *
+     * @since [*next-version*]
+     *
+     * @param MapFactoryInterface $mapFactory The map factory instance.
+     */
+    protected function _setMapFactory(MapFactoryInterface $mapFactory)
+    {
+        $this->mapFactory = $mapFactory;
+    }
+
+    /**
+     * Creates the result set from raw record data sets.
+     *
+     * @since [*next-version*]
+     *
+     * @param array|stdClass|Traversable $rawResults The list of raw record data sets, as arrays, stdClass instances
+     *                                               or any array-like and traversable instance, such as ArrayObject.
+     *
+     * @return MapInterface[]|stdClass|Traversable A list of maps, each containing data for a record.
+     */
+    protected function _createResultSet($rawResults)
+    {
+        $results = [];
+
+        foreach ($this->_normalizeIterable($rawResults) as $_rawResult) {
+            $results[] = $this->_createResult($_rawResult);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Creates the result map from the raw data of a record.
+     *
+     * @since [*next-version*]
+     *
+     * @param array|stdClass|ArrayObject $rawResult The raw data for the record.
+     *
+     * @return MapInterface The created data map that contains the record data.
+     */
+    protected function _createResult($rawResult)
+    {
+        return $this->_getMapFactory()->make([
+            MapFactoryInterface::K_DATA => $rawResult
+        ]);
     }
 
     /**

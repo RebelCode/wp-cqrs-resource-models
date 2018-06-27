@@ -2,6 +2,7 @@
 
 namespace RebelCode\Storage\Resource\UnitTest\WordPress\Wpdb;
 
+use Dhii\Collection\MapFactoryInterface;
 use Dhii\Output\TemplateInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use PHPUnit_Framework_MockObject_MockBuilder as MockBuilder;
@@ -78,6 +79,25 @@ class WpdbSelectResourceModelTest extends TestCase
     }
 
     /**
+     *
+     *
+     * @since [*next-version*]
+     *
+     * @param $map
+     *
+     * @return MockObject
+     */
+    protected function createMap($map)
+    {
+        $builder = $this->mockClassAndInterfaces('ArrayObject', ['Dhii\Collection\MapInterface']);
+        $mock    = $builder->setMethods(['get', 'has'])
+                           ->setConstructorArgs([$map])
+                           ->getMock();
+
+        return $mock;
+    }
+
+    /**
      * Creates a new template mock instance.
      *
      * @since [*next-version*]
@@ -89,6 +109,27 @@ class WpdbSelectResourceModelTest extends TestCase
         return $this->getMockBuilder('Dhii\Output\TemplateInterface')
                     ->setMethods(['render'])
                     ->getMockForAbstractClass();
+    }
+
+    /**
+     * Creates a new map factory instance.
+     *
+     * @since [*next-version*]
+     *
+     * @return MockObject|MapFactoryInterface The created map factory instance.
+     */
+    protected function createMapFactory()
+    {
+        $mock = $this->getMockBuilder('Dhii\Collection\MapFactoryInterface')
+                    ->setMethods(['make'])
+                    ->getMockForAbstractClass();
+
+        $mock->method('make')
+             ->willReturnCallback(function ($config) {
+                 return $this->createMap($config[MapFactoryInterface::K_DATA]);
+             });
+
+        return $mock;
     }
 
     /**
@@ -175,6 +216,7 @@ class WpdbSelectResourceModelTest extends TestCase
     {
         $wpdb = $this->createWpdb();
         $template = $this->createTemplate();
+        $mapFactory = $this->createMapFactory();
         $tables = [
             uniqid('table-') => uniqid('alias-'),
             uniqid('table-') => uniqid('alias-'),
@@ -190,7 +232,7 @@ class WpdbSelectResourceModelTest extends TestCase
             uniqid('table-') => $this->createLogicalExpression(uniqid('type-'), []),
         ];
 
-        $subject = new TestSubject($wpdb, $template, $tables, $fcMap, $joins);
+        $subject = new TestSubject($wpdb, $template, $mapFactory, $tables, $fcMap, $joins);
 
         $this->assertInstanceOf(
             'Dhii\Storage\Resource\SelectCapableInterface',
@@ -216,8 +258,9 @@ class WpdbSelectResourceModelTest extends TestCase
             'age' => 'user_age',
         ];
         $template = $this->createTemplate();
+        $mapFactory = $this->createMapFactory();
         $joins = [];
-        $subject = new TestSubject($wpdb, $template, $tables, $fcMap, $joins);
+        $subject = new TestSubject($wpdb, $template, $mapFactory, $tables, $fcMap, $joins);
 
         $condition = $this->createLogicalExpression(
             'and',
@@ -253,14 +296,38 @@ class WpdbSelectResourceModelTest extends TestCase
             ->with($expectedQuery, $this->isType('array'))
             ->willReturn($preparedQuery);
 
-        $results = [uniqid('result-'), uniqid('result-'), uniqid('result-')];
+        $expected = [
+            [
+                uniqid('field1-') => uniqid('value1-'),
+                uniqid('field2-') => uniqid('value2-'),
+            ],
+            [
+                uniqid('field1-') => uniqid('value1-'),
+                uniqid('field2-') => uniqid('value2-'),
+            ],
+            [
+                uniqid('field1-') => uniqid('value1-'),
+                uniqid('field2-') => uniqid('value2-'),
+            ],
+        ];
         $wpdb->expects($this->once())
             ->method('query')
             ->with($preparedQuery);
-        $wpdb->last_result = $results;
+        $wpdb->last_result = $expected;
 
-        $actual = $subject->select($condition);
+        $actual    = $subject->select($condition);
+        $actualRaw = [];
 
-        $this->assertEquals($results, $actual, 'Expected and retrieved results are not the same.');
+        foreach ($actual as $_item) {
+            $this->assertInstanceOf(
+                'Dhii\Collection\MapInterface',
+                $_item,
+                'Item in result list is not a map'
+            );
+
+            $actualRaw[] = iterator_to_array($_item);
+        }
+
+        $this->assertEquals($expected, $actualRaw, 'Expected and retrieved results are not the same.');
     }
 }
