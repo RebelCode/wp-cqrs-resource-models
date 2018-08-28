@@ -44,7 +44,10 @@ trait SelectCapableWpdbTrait
             : [];
 
         $values = array_values($hashValueMap);
-        $tokens = array_combine($values, array_fill(0, count($values), '%s'));
+        $vCount = count($values);
+        $tokens = ($vCount > 0)
+            ? array_combine($values, array_fill(0, count($values), '%s'))
+            : [];
 
         $query = $this->_buildSelectSql(
             $this->_getSqlSelectColumns(),
