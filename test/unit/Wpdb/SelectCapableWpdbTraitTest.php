@@ -211,4 +211,75 @@ class SelectCapableWpdbTraitTest extends TestCase
 
         $this->assertEquals($expected, $result, 'Expected and retrieved results do not match');
     }
+
+    /**
+     * Tests the SELECT SQL method without any values in the condition, to test whether the query can be built
+     * successfully.
+     *
+     * Related to a known PHP 5.4 and PHP 5.5 `array_fill` bug.
+     * See {@link [https://github.com/RebelCode/wp-cqrs-resource-models/issues/7] the documented issue on GitHub}.
+     *
+     * @since [*next-version*]
+     */
+    public function testSelectNoValues()
+    {
+        $subject = $this->createInstance();
+        $reflect = $this->reflect($subject);
+
+        $condition = $this->createLogicalExpression(uniqid('type-'), []);
+        $cols = [uniqid('col-', 'col-')];
+        $tables = [uniqid('table-'), uniqid('table-')];
+        $fields = [uniqid('field-'), uniqid('field-')];
+
+        // All empty
+        $hashValueMap = [];
+        $tokens = [];
+        $values = [];
+
+        $joins = [
+            $this->createLogicalExpression(uniqid('type-'), []),
+            $this->createLogicalExpression(uniqid('type-'), []),
+        ];
+        $ordering = [
+            $this->createOrdering(),
+            $this->createOrdering(),
+        ];
+        $limit = rand(50, 100);
+        $offset = rand(0, 50);
+        $query = uniqid('query-');
+        $grouping = [
+            uniqid('field1'),
+            uniqid('field2'),
+        ];
+
+        $subject->method('_getSqlSelectColumns')->willReturn($cols);
+        $subject->method('_getSqlSelectTables')->willReturn($tables);
+        $subject->method('_getSqlSelectJoinConditions')->willReturn($joins);
+        $subject->method('_getSqlSelectFieldNames')->willReturn($fields);
+        $subject->method('_getSqlSelectGrouping')->willReturn($grouping);
+        $subject->expects($this->atLeastOnce())
+                ->method('_getWpdbExpressionHashMap')
+                ->with($condition, $fields)
+                ->willReturn($hashValueMap);
+
+        $subject->expects($this->once())
+                ->method('_buildSelectSql')
+                ->with($cols, $tables, $joins, $condition, $ordering, $limit, $offset, $grouping, $tokens)
+                ->willReturn($query);
+
+        $expected = [
+            ['id' => '1', 'name' => 'foo'],
+            ['id' => '2', 'name' => 'bar'],
+            ['id' => '4', 'name' => 'test'],
+        ];
+
+        $subject->expects($this->once())
+                ->method('_getWpdbQueryResults')
+                ->with($query, $values)
+                ->willReturn($expected);
+
+        $result = $reflect->_select($condition, $ordering, $limit, $offset);
+
+        $this->assertEquals($expected, $result, 'Expected and retrieved results do not match');
+    }
 }
